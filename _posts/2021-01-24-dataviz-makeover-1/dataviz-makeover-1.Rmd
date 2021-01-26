@@ -1,0 +1,142 @@
+---
+title: "DataViz Makeover 1"
+description: |
+  DataViz Makeover 1 for ISSS608: Visual Analytics
+author:
+  - name: LIM Kai Chin
+    url: https://www.linkedin.com/in/kai-chin-lim-a5030b156/
+date: 01-24-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_float: true
+    toc_depth: 3
+    
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+# 1.0 Critique of Visualisation
+
+The original visualisation can be seen below. 
+
+![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/base-visual.PNG)
+
+### 1.1 Clarity
+
+1)	The title and subtitle of the graph does not convey the intent of the graph well. In this case, the graph is trying to show the increase in median age of the workforce, but the title only mentions that the graph has something to do with the resident labour force by age. The subtitle of percent is also not clear, as it does not mention whether the percentage shown is percent of labour force, percent of entire population, or percent of age group in the work force.
+
+2)	There is no y-axis, as such, the difference in scale is not conveyed properly. It is hard to compare the different percentages across different age groups. 
+
+3)	A line graph is used, which can mislead people into thinking that the lines are meant to be interpreted as a time series and compared across age groups. However, the main topic to is look at the different percentages within the age groups across time. 
+
+4)	Some form of transformation is carried out from the original data that is not shown or described in the blurb or the graph. The dataset shows the proportion of each age group in the workforce, whereas the graph shows the percentage of age group as part of the entire workforce. There is no explanation on how the values are derived. 
+
+### 1.2 Aesthetic
+
+1)	There is poor use of colours in the chart. The background colour is not particularly useful as it does not seem to serve any purpose. Brighter or distinct colouration is not used to convey the point of the median age increasing from 2009 to 2019.  
+2)	“Chart 6” of the title and the note at the bottom of the graph are not in line with the main graphic.
+3)	Tick marks are used on the x-axis even though it is a categorical scale. 
+4)	Values have no scale, which might confuse readers regarding that the values are absolute values.
+5)	Annotations are not used to convey points, leaving the reader to infer the purpose of the graph.  
+
+# 2.0 Alternative Design
+
+The proposed design is as follows. 
+
+![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/draft-1.jpg)
+
+### 2.1 Clarity
+
+1)	Title and subtitle explain key words and definitions that will be used in the graph. No additional transformation is done to the data, only using age group, gender, year, and LFPR as the basis for the graph. 
+
+2)	Y-axis is added to enable the reader to read and compare LFPR results across different years and age groups more easily. 
+
+3)	A slope graph is used, which clearly shows the vertical relationship between LFPR across years, age groups, and gender. It is enables easy identification of changes over time and trends as there is a visual representation of these changes. 
+
+### 2.2 Aesthetic
+
+1)	Annotations are used to emphasize key observations. Colour is used to bring to attention different categories (e.g., different genders, negative trend in growth)
+
+2)	Chart titles and notes are aligned to the main chart. 
+
+3)	Tick marks are not used for categories. 
+
+4)	Y-axis is formatted into percentage to clarify that these numbers are a proportion and not absolute numbers. 
+
+
+# 3.0 Proposed Visualisation
+
+Please view the interactive visualisation on Tableau Public [here](https://public.tableau.com/profile/api/publish/DataViz1_16113674336320/Sheet1)
+
+# 4.0 Step-by-step Guide
+
+No | Step | Action
+---|------------------------|----------------
+1 | Select only the top table for each data set and paste into a new sheet using Microsoft Excel | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step1.png){ width=500px}
+2 | Import the data into Tableau.| ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step2.png){ width=500px  }
+3 | Use Tableau to pivot the data in sheet, with measure values in columns and age in rows. | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step3.png)
+4 | Remove the CNT in Measure Values | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step4a.png){ width=250px  }![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step4b.png){ width=250px  }
+5 | View the data in Tableau.| ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step5.png){ width=500px  }
+6 | Export the data and save the file with an appropriate name.| ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step6.png){ width=500px  }
+7 | Repeat steps 1 – 6 for both Male and Female sections. Merge the exported files using Microsoft Excel and add a Category column to identify the dataset source. | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step7.png){ width=500px  } 
+8 | Import the cleaned dataset into Tableau.  | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step8.png){ width=500px  } 
+9 | Change the LFPR from value to percentage by adding a calculated field. | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step9.png){ width=500px  } 
+10 | Change the data types to the correct ones and rename columns for better clarity. | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step10.png){ width=500px  } 
+11 | Add Age (Years) and YEAR to the Column tab and LFPR to the Rows tab. | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step11.png){ width=500px  }
+12 | Change Measure (Sum) to Measure (AVG) to make it the average for the 3 categories of genders (T, F, M).  | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step12.png){ width=500px  }
+13 | Add a filter to remove Total in the Age (Years) variable. | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step13.png){ width=500px  }
+14 | Add another filter for Category to include the gender category.  | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step14.png){ width=500px  }
+15 | Select the dropdown menu in the filter tab and select Show Filter to display the filter sidebar.  | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step15.png)
+16 | Add Category to the Colour side panel to differentiate the genders in the main graph.   | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step16.png)
+17 | Add a filter for YEAR to include the time series for the data set. Select Year as there is no further level of detail in the dataset.   | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step17.png){ width=300px  }
+18 | Select the desired Years for comparison. In this case, only 2009 and 2019 are chosen. Show the Year filter on the sidebar.    | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step18.png){ width=500px  }
+19 | The base graph should look like this. | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step19.png){ width=500px  }
+20 | Add another copy of AVG (LFPR%) to create a dual axis.  | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step20.png){ width=500px  }
+21 | Right click on the bottom Y-axis and select dual axis chart.   | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step21.png)
+22 | Right click on the right Y-axis, select Synchronize Axis and deselect Show Header.   | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step22.png)
+23 | Change panel from Automatic to Circle to show marks in the main graph.    | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step23.png)
+24 | Select the size button and resize to desired level.     | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step24.png)
+25 | Duplicate AVG (LFPR %) in the Rows tab, click on the down arrow, and create a Quick Table Calculation for Percentage Difference.| ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step25.png)
+26 | Select Edit Table Calculation and ensure that the Pane (across) option is selected. | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step26.png)
+27 | Double click the variable in the Row tab and copy the formula.  | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step27.png){ width=500px  }
+28 | Create a calculated field for the Difference variable for negative values. Repeat for the positive values.   | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step28.png)
+29 | Drag both the Negative and Positive fields into the label tab. Ensure that the labels go only into the second axis. Double click the Label tab, ensure that Show mark labels is selected, the Most Recent option is selected for Marks to label, and the Pane option is selected for Scope. Recolour the text to the desired colours.    | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step29.png)
+30 | Select the Multiple Values (dropdown) for the filters to reduce the size of the legend and filter selection.    | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step30.png){ width=500px  }
+31 | Right click on the main graph area and select annotate. Type in insights and observations in the text area. Arrange, resize, or format the resulting text box if required.     | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step31.png)
+32 | Right click on the main graph area and select annotate. Type in insights and observations in the text area. Arrange, resize, or format the resulting text box if required.     | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step32.png)
+33 | The final dashboard is ready!     | ![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/Steps/Step33.png){ width=500px  }
+
+# 5.0 Derived Insights
+
+1)	Between 2009 and 2019, a 4% increase in total LFPR can be seen. Overall, LFPR is trending upwards across all age groups except 20 - 24. The increase between genders is also quite apparent, as females have seen double digit increases for age groups over 30, whereas the LFPR remains relatively constant or decreased slightly from 2009 to 2019. This may be potentially due to the changing societal roles, where women are less likely to become homemakers as compared to 10 years ago.  
+
+![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/insight3a.png)
+
+![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/insight3b.png)
+
+Additional social supportsystems have also been put in place since then, such as enhanced maternity benefits and parental leave, flexible work arrangements and telecommuting. 
+
+[Straits Times, 2017](https://www.straitstimes.com/singapore/manpower/growing-number-of-women-in-the-workforce)
+
+2)	Large increases can be seen in the age groups above 60. This may be potentially due to the government introducing a re-employment age whereby companies have to offer re-employment to eligible employees. This legislation was legislated in 2012, with a limit at 65. This age was raised again to 67 in 2017. 
+
+[Channel News Asia, 2019](//www.todayonline.com/singapore/govt-raise-retirement-age-65-and-re-employment-age-70-2030-cpf-contribution-rates-older)
+
+[Ministry of Manpower, 2021](https://www.mom.gov.sg/employment-practices/re-employment)
+
+Once broken down into the respective genders, the effect is even more pronounced, with a 100% increase and 121% increase in LFPR for Females 65 - 69 and 70 & above respectively. 
+
+![](/ISSS608/blog/_posts/2021-01-24-dataviz-makeover-1/insight2.png)
+
+3)	There is a 4% decrease in 20 – 24 age group for all genders. However, once we look at the gender split, the decrease in Male LFPR for that age group is at 9%, whereas the Female LFPR has increased by almost 2%. This might be due to a delay caused by National Service, where a greater proportion of males are still in higher education as compared to females.  
+
+
+
+
+
+
+

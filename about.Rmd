@@ -1,7 +1,7 @@
 ---
 title: "About this blog"
 description: |
-  Some additional details about the blog
+  This blog was created for the Singapore Management University, Masters of IT in Business, ISSS608: Visual Analytics module in AY2020/21 Term 2
 ---
 
 ```{r setup, include=FALSE}
