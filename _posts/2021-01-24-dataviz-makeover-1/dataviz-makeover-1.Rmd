@@ -70,7 +70,7 @@ The proposed design is as follows.
 
 # 3.0 Proposed Visualisation
 
-Please view the interactive visualisation on Tableau Public [here](https://public.tableau.com/profile/api/publish/DataViz1_16113674336320/Sheet1)
+Please view the interactive visualisation on Tableau Public [here](https://public.tableau.com/profile/api/publish/DataViz1_16113674336320/Sheet1).
 
 # 4.0 Step-by-step Guide
 
