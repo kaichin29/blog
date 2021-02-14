@@ -1,0 +1,139 @@
+---
+title: "Dataviz Makeover 2"
+description: |
+  DataViz Makeover 2 for ISSS608: Visual Analytics
+author:
+  - name: LIM Kai Chin
+    url: https://www.linkedin.com/in/kai-chin-lim-a5030b156/
+date: 02-01-2021
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+    toc_float: true
+    toc_depth: 3
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# 1.0 Critique of Visualisation
+
+The original visualisation can be seen below. 
+
+![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/base-visual.PNG)
+
+### 1.1 Clarity
+
+1)	The use of stacked bar charts results in readers having to estimate the proportion across different countries. This is hard to compare, as the baseline of each option keeps shifting, which may lead to misinterpretations.
+
+2)	Both charts are sorted differently, with Chart 1 (general response chart) being sorted alphabetically by country, while Chart 2 is sorted by percentage of strongly agrees. As they are put side-by-side, users may misinterpret that the Y-axis categories are the same. 
+
+3)	Chart 2 has many values that are quite close, such as Sweden, Canada, Norway, Finland, and Italy. It is hard to make comparisons between these countries without any percentage values or reference lines shown. 
+
+4)	The x-axis of Chart 2 is only up to 60%. This may confuse the reader as it would over-emphasize those that strongly agree since the max value for Chart 2 is the same length as one of the stacked bar charts in Chart 1.
+
+### 1.2 Aesthetic
+1)	The colour selection of the bar charts is not optimal. Red is usually used as an eye-catching colour for poor performance or as a highlight. Here, it is used for Option 3, neutral. This is against convention.
+
+2)	The same blue is used for Option 1, Strongly agree, and the percentage of strongly agreed to vaccination. The same colours can be confusing at first glance.  
+
+3)	There are typos in Chart 1 title, as vaccine is mis-spelled as “vacinne"
+
+4)	The units for the x-axes of both graphs are not fully standardised as Chart 1 has no decimal places, but Chart 2 is up to 1 decimal place. 
+
+# 2.0 Alternative Design
+
+The proposed design is as follows. 
+
+![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Alternative_design.jpg)
+
+
+### 2.1 Clarity
+
+1)	Instead of a stacked bar chart, a likert scale chart is used to represent the diverging nature of the responses. This more clearly represents the proportions and visual scale of the differing opinions of different countries. 
+
+2)	The tooltip is used to relay important figures instead of using an entirely new chart to represent related data.
+
+3)	As there is only 1 x-axis, there is no confusion on the size and scale of different bars. X-axis is also fixed to prevent shifting of the 0 value. 
+
+### 2.2 Aesthetic
+
+1)	The colours selected are more in line with convention, with redder colours representing negative opinions. The colours are kept consistent even if options are changed with no repeating colours. 
+
+2)	The legend is updated to reflect the options for opinions more clearly by describing all options (1 = Strongly Agree, 2 = Agree, 3 = Neutral, 4 = Disagree, 5 = Strongly Disagree) 
+
+3)	A reference line at 0% is used to further emphasize the diverging opinions for the likert scale chart.
+
+# 3.0 Proposed Visualisation
+
+Please view the interactive visualisation on Tableau Public [here](https://public.tableau.com/profile/kai.chin#!/vizhome/Dataviz2_16132677593940/Dashboard1?publish=yes).
+
+# 4.0 Step-by-step Guide
+
+No | Step | Action
+---|------------------------|----------------
+1 | In the data source tab, select the New Union function and import all data sheets using a manual connection.  | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step1.png){ width=250px}
+2 | Export the data using the View Data function.   | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step2.png){ width=500px}
+3 | Import cleaned data into a new Tableau sheet. Split Table Names using the custom split function to create a new column called “Country”.    | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step3.png){ width=300px}
+4 | Create a new parameter field for question selection. Use the list function and list out the relevant questions as variables. Key in text fields in the Display As column to explain the questions for more clarity.     | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step4.png){ width=500px}
+5 | Create new Calculated Field and set the cases when different questions are selected.      | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step5.png){ width=500px}
+6 | Create new Calculated field to convert them from string into an integer format.        | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step6.png){ width=500px}
+7 | Create a record list using a calculated field and setting the value as 1.         | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step7.png){ width=500px}
+8 | Create a Total Count Calculated Field.        | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step8.png){ width=500px}
+9 | Create a Count Negative Calculated Field to define the values for the likert scale diagram.        | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step9.png){ width=500px}
+10 | Create a Total Count Negative Calculated Field to consolidate all negative values.         | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step10.png){ width=500px}
+11 | Create a Gantt Start Calculated Field to define the start of the Gantt Chart.         | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step11.png){ width=500px}
+12 | Create a Gantt Percentage Calculated Field to define the size and scale of the likert scale diagram.         | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step12.png){ width=500px}
+13 | Create a Percentage Calculated Field to define the size of the bar chart.          | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step13.png){ width=500px}
+14 | Insert variables into the Rows and Columns selector.          | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step14.png){ width=200px}
+15 | Add Question selector to Detail and Colour, Percentage to Size, and change the graph type to Gantt Bar.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step15.png){ width=250px}
+16 | Ensure that the Gantt Percentage chart is calculated using the Question Selector Variable.         | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step16.png){ width=500px}
+17 | Add a reference line at the 0 value on the x-axis.  | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step17.png){ width=500px}
+18 | Base visualisation with variable selections for question looks like this.         | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step18.png){ width=500px}
+19 | Create another parameter for demographic selection, this time filling in the values for the selected variables. Change the display name as required.          | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step19.png){ width=500px}
+20 | Create a Calculated Field that sets the correct demographic case when the associated variable is selected.          | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step20.png){ width=500px}
+21 | Ensure that all the demographics are in string / categorical format.          | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step21.png){ width=250px}
+22 | Plot a histogram to check if the auto-generated Tableau histogram bins are useable. As there are many values above age 105, create own bins.          | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step22.png){ width=500px}
+23 | Create a new parameter called Bin size, use 5 as the current value. This will be used to bin the ages into a category.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step23.png){ width=500px}
+24 | Create a Calculated Field that bins the records into its associated age bin.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step24.png){ width=500px}
+25 | Check if the bin sizes are correct.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step25.png){ width=500px}
+26 | Add a filter for age and exclude any bins that are larger than 110. These are most probably data entry errors.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step26.png){ width=500px}
+27 | Add a filter to exclude Null replies for the Question Selector variable.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step27.png){ width=500px}
+28 | Add aliases to the Question Selector variable to give more clarity for the values.          | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step28.png){ width=500px}
+29 | Double confirm that the Question Selector is sorted correctly.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step29.png){ width=500px}
+30 | Add the Demographic Selector to the Rows, and the base design of the sheet is created.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step30.png){ width=500px}
+31 | Fix the x-axis to prevent the reference line from shifting when parameters change to avoid confusing users.            | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step31.png){ width=500px}
+32 | Edit the tooltip to give explanations on the various values and parameters used. | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step32.png){ width=500px}
+33 | Right click and rename titles to more suitable statements for dashboarding.            | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step33.png){ width=500px}
+34 | Rearrange panels to suit aesthetic preference and add captions if needed. This is a view of the final product.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step34.png){ width=500px}
+
+# 5.0 Derived Insights
+
+1)	France is the greatest “anti-vaccine” country, with the least confidence in a vaccine that they can take next week, with almost 40% of participants expressing a Strongly Disagree opinion for taking a vaccine next week. 
+![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/insight1.png)
+
+This has been supported by other surveys conducted by other agencies and polling companies. There may be more instances of vaccine-skepticism or other forms of misinformation driving this. This may also be due to cultural norms. 
+[Euronews, 2021](https://www.euronews.com/2021/01/18/why-do-so-few-people-in-france-want-to-take-the-covid-19-vaccine)
+
+2)	Japan is the most afraid of side effects from a vaccine, with 35.7% of respondents expressing a Strongly Agree opinion on worries for side effects for a vaccine. 
+
+![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/insight2.png)
+
+Past vaccine development usually takes many years to develop, and that has caused some concerns, especially in Japan, which may have contributed to the lower confidence in vaccines and the greater concern with side effects, as shown in the visualisation.   
+[Japantimes, 2020](https://www.japantimes.co.jp/news/2020/11/25/national/science-health/japan-experts-coronavirus-vaccines-safety/)
+
+3)	Males in general are more willing to take a vaccine this week as compared to females. This may be linked to the general worries about side effects for a vaccine, as females are more likely to be worried about side effects, which may in turn decrease their propensity to receive a vaccine. 
+
+![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/insight3a.png)
+
+![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/insight3b.png)
+
+4)	Singapore has the most confidence in the government, as the proportion of Strongly Agree and Agree is the highest when asked about whether the government will provide an effective vaccine. This might be due to general high confidence levels in Singapore for the government due to its past records of steering Singapore out of crises.  
+France is the least confident in its government, possibly due to its general lack of confidence in effective vaccines. 
+
+![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/insight4.png)
+
+
