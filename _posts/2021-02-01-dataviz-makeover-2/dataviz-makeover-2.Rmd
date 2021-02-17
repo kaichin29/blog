@@ -48,7 +48,7 @@ The original visualisation can be seen below.
 
 The proposed design is as follows. 
 
-![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Alternative_design.jpg)
+![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/AlternativeDesign.jpg)
 
 
 ### 2.1 Clarity
@@ -72,6 +72,8 @@ The proposed design is as follows.
 Please view the interactive visualisation on Tableau Public [here](https://public.tableau.com/profile/kai.chin#!/vizhome/Dataviz2_16132677593940/Dashboard1?publish=yes).
 
 # 4.0 Step-by-step Guide
+
+### 4.1 Graphing a Likert Chart 
 
 No | Step | Action
 ---|------------------------|----------------
@@ -110,28 +112,69 @@ No | Step | Action
 33 | Right click and rename titles to more suitable statements for dashboarding.            | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step33.png){ width=500px}
 34 | Rearrange panels to suit aesthetic preference and add captions if needed. This is a view of the final product.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step34.png){ width=500px}
 
+### 4.2 Graphing Uncertainty  
+
+No | Step | Action
+---|------------------------|----------------
+1 | Create a Calculated Field called Proportion with the following formula. This is to find the number of respondents that gave a Strongly Agree or Agree score.   | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step35.png){ width=500px}
+2 | Create a Calculated Field called Prop_SE with the following formula. This is to find the standard error for the uncertainty of the proportion.   | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step36.png){ width=500px}
+3 | Create Calculated Fields for z-values for various confidence levels. In this case, z-values for 90%, 95%, and 99% were created.   | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step37a.png)![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step37b.png)![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step37c.png)
+4 | Create a Parameter to select desired confidence level. Keep data types as String and list out the various confidence levels that were created in the previous step.   | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step38.png){ width=500px}
+5 | Create a Calculated Field to select for the confidence level input with the following formula  | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step39.png){ width=500px}
+6 | Create a Calculated Field to determine the correct lower bound of the confidence interval, using this formula.   | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step40.png){ width=500px}
+7 | Duplicate the Calculated Field and change the formula to create the upper bound for the confidence interval.   | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step41.png){ width=500px}
+8 | Drag Proportion and Country into the Columns and Rows, respectively. This will create a preliminary baseline for the uncertainty chart.  | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step42.png)
+9 | Drag Measure Values into the Columns tab and remove all irrelevant information, leaving only Prop_Lower Bound and Prop_Upper Bound.   | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step43.png)
+10 | Change the chart to a line graph, then drag Measure Names into the Detail Tab. Change Measure names from a Detail to a Path.    | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step44.png)
+11 | Create a dual axis chart by right-clicking on the x-axis. Remember to select Synchronise Axis to align the x-axes.   | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step45.png)
+12 | Repeat step X to Y for a comparison level of confidence interval. Drag these new upper bounds and lower bounds into Measure Values.    | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step46.png)
+13 | Ctrl-drag Measure Names into the Colour tab. | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step47.png)
+14 | Select the Colours tab, edit the various colours so that the Lower and Upper bound match up with the correct pair. | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step48.png)
+15 | Click on the arrow at the side and select sort. Pair up each of the respective lower and upper bounds.  | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step49.png)
+16 | Drag Demographic Select field that was previously created into the row to allow for variable selection for the demographic parameters.  | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step50.png){ width=400px}
+17 | Edit the tooltip to display information to the user.   | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step51.png){ width=500px}
+18 | The final layout of the uncertainty sheet is complete.    | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step52.png){ width=500px}
+
+
+### 4.3 Dashboarding
+
+No | Step | Action
+---|------------------------|----------------
+1 | Drag the Uncertainty sheet into the dashboard. Rearrange and align to fit the screen and ensure readability.   | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step53.png){ width=500px}
+2 | Select the arrow for the Country Parameter, go to Apply to Worksheets sub-menu and ensure that the All Using This Data Source option is selected. This will ensure that this Parameter can control both visualisations. Repeat step for other relevant parameters that have been included.   | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step54.png){ width=500px}
+3 | The final dashboard is complete.  | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step55.png){ width=500px}
+
+
+
+
 # 5.0 Derived Insights
 
 1)	France is the greatest “anti-vaccine” country, with the least confidence in a vaccine that they can take next week, with almost 40% of participants expressing a Strongly Disagree opinion for taking a vaccine next week. 
+
 ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/insight1.png)
+
 
 This has been supported by other surveys conducted by other agencies and polling companies. There may be more instances of vaccine-skepticism or other forms of misinformation driving this. This may also be due to cultural norms. 
 [Euronews, 2021](https://www.euronews.com/2021/01/18/why-do-so-few-people-in-france-want-to-take-the-covid-19-vaccine)
 
-2)	Japan is the most afraid of side effects from a vaccine, with 35.7% of respondents expressing a Strongly Agree opinion on worries for side effects for a vaccine. 
+
+2)	Japan is the most afraid of side effects from a vaccine, with 79.2% of respondents expressing a Strongly Agree or Agree opinion on worries for side effects for a vaccine. Singapore follows closely behind with 75.8% of participants agreeing with the comment.
+
 
 ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/insight2.png)
 
+
 Past vaccine development usually takes many years to develop, and that has caused some concerns, especially in Japan, which may have contributed to the lower confidence in vaccines and the greater concern with side effects, as shown in the visualisation.   
-[Japantimes, 2020](https://www.japantimes.co.jp/news/2020/11/25/national/science-health/japan-experts-coronavirus-vaccines-safety/)
+[Japan Times, 2020](https://www.japantimes.co.jp/news/2020/11/25/national/science-health/japan-experts-coronavirus-vaccines-safety/)
 
-3)	Males in general are more willing to take a vaccine this week as compared to females. This may be linked to the general worries about side effects for a vaccine, as females are more likely to be worried about side effects, which may in turn decrease their propensity to receive a vaccine. 
 
-![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/insight3a.png)
+3) Males in general are more willing to take a vaccine this week as compared to females. This may be linked to the general worries about side effects for a vaccine, as females are more likely to be worried about side effects, which may in turn decrease their propensity to receive a vaccine. 
 
-![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/insight3b.png)
+![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/insight3.png)
 
-4)	Singapore has the most confidence in the government, as the proportion of Strongly Agree and Agree is the highest when asked about whether the government will provide an effective vaccine. This might be due to general high confidence levels in Singapore for the government due to its past records of steering Singapore out of crises.  
+
+4)	Singapore has the most confidence in the government, as the proportion of Strongly Agree and Agree is the highest when asked about whether the government will provide an effective vaccine.  This might be due to general high confidence levels in Singapore for the government due to its past records of steering Singapore out of crises.  
+
 France is the least confident in its government, possibly due to its general lack of confidence in effective vaccines. 
 
 ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/insight4.png)
