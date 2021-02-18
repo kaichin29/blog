@@ -55,17 +55,24 @@ The proposed design is as follows.
 
 1)	Instead of a stacked bar chart, a likert scale chart is used to represent the diverging nature of the responses. This more clearly represents the proportions and visual scale of the differing opinions of different countries. 
 
-2)	The tooltip is used to relay important figures instead of using an entirely new chart to represent related data.
+2)	As there is only 1 x-axis for the likert chart, there is no confusion on the size and scale of different bars. X-axis is also fixed to prevent shifting of the 0 value.
 
-3)	As there is only 1 x-axis, there is no confusion on the size and scale of different bars. X-axis is also fixed to prevent shifting of the 0 value. 
+3)	The values for the uncertainty chart follows the statement being mentioned in the likert chart, so it is clear that both charts are talking about the same statement / question. 
+
+4) The reference band for different confidence levels will be shaded slightly less dark compared to the mean value, with the confidence level being stated clearly to show uncertainty.    
+
+5) Both visualisations are sorted in the same way, so as to allow for easier comparison across visualisations. 
+
 
 ### 2.2 Aesthetic
 
-1)	The colours selected are more in line with convention, with redder colours representing negative opinions. The colours are kept consistent even if options are changed with no repeating colours. 
+1)	The colours selected will be more in line with convention, with redder colours representing negative opinions.
 
 2)	The legend is updated to reflect the options for opinions more clearly by describing all options (1 = Strongly Agree, 2 = Agree, 3 = Neutral, 4 = Disagree, 5 = Strongly Disagree) 
 
-3)	A reference line at 0% is used to further emphasize the diverging opinions for the likert scale chart.
+3) A reference line at 0% is used in the likert chart to further emphasize the diverging opinions.
+
+4) Different parameters are used to enable the user to select their preferred category for further analysis instead of having an aggregated data visualisation, as there might be variation of opinion between groups.  
 
 # 3.0 Proposed Visualisation
 
@@ -95,17 +102,17 @@ No | Step | Action
 16 | Ensure that the Gantt Percentage chart is calculated using the Question Selector Variable.         | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step16.png){ width=500px}
 17 | Add a reference line at the 0 value on the x-axis.  | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step17.png){ width=500px}
 18 | Base visualisation with variable selections for question looks like this.         | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step18.png){ width=500px}
-19 | Create another parameter for demographic selection, this time filling in the values for the selected variables. Change the display name as required.          | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step19.png){ width=500px}
+19 | Create another parameter for demographic selection, this time filling in the values for the selected variables. Change the display name as required. Use "(All)" in the parameter field to ensure that there is a master parameter selection.        | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step19.png){ width=500px}
 20 | Create a Calculated Field that sets the correct demographic case when the associated variable is selected.          | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step20.png){ width=500px}
 21 | Ensure that all the demographics are in string / categorical format.          | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step21.png){ width=250px}
-22 | Plot a histogram to check if the auto-generated Tableau histogram bins are useable. As there are many values above age 105, create own bins.          | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step22.png){ width=500px}
-23 | Create a new parameter called Bin size, use 5 as the current value. This will be used to bin the ages into a category.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step23.png){ width=500px}
-24 | Create a Calculated Field that bins the records into its associated age bin.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step24.png){ width=500px}
-25 | Check if the bin sizes are correct.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step25.png){ width=500px}
-26 | Add a filter for age and exclude any bins that are larger than 110. These are most probably data entry errors.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step26.png){ width=500px}
-27 | Add a filter to exclude Null replies for the Question Selector variable.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step27.png){ width=500px}
+22 | Create groups for the Age variable to bin the values to make them into categorical variables.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step22.png){ width=500px}
+23 | Bin sizes should be something reasonable, for example, a range of 5 years.            | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step23.png){ width=500px}
+24 | Repeat for the group creation step for Household Children, grouping them into fewer categories. | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step24.png){ width=500px}
+25 | Repeat for the group creation step for Household size, grouping them into fewer categories.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step25.png){ width=500px}
+26 | Display the filter for the Demographic Selector Calculated Field.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step26.png){ width=500px}
+27 | Add a filter to exclude Null replies for the Question Selector variable if any.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step27.png){ width=500px}
 28 | Add aliases to the Question Selector variable to give more clarity for the values.          | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step28.png){ width=500px}
-29 | Double confirm that the Question Selector is sorted correctly.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step29.png){ width=500px}
+29 | Confirm that the Question Selector is sorted correctly. If there are errors, select on an option and adjust with the arrows.     | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step29.png){ width=500px}
 30 | Add the Demographic Selector to the Rows, and the base design of the sheet is created.           | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step30.png){ width=500px}
 31 | Fix the x-axis to prevent the reference line from shifting when parameters change to avoid confusing users.            | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step31.png){ width=500px}
 32 | Edit the tooltip to give explanations on the various values and parameters used. | ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/Steps/Step32.png){ width=500px}
@@ -149,23 +156,22 @@ No | Step | Action
 
 # 5.0 Derived Insights
 
-1)	France is the greatest “anti-vaccine” country, with the least confidence in a vaccine that they can take next week, with almost 40% of participants expressing a Strongly Disagree opinion for taking a vaccine next week. 
+1)	France is the most “anti-vaccine” country, with the least confidence in a vaccine that they can take next week, with almost 40% of participants expressing a Strongly Disagree opinion for taking a vaccine next week. It also has the smallest proportion of people agreeing with the statement, at only 39%. 
 
 ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/insight1.png)
 
 
-This has been supported by other surveys conducted by other agencies and polling companies. There may be more instances of vaccine-skepticism or other forms of misinformation driving this. This may also be due to cultural norms. 
+This has been supported by other surveys conducted by other agencies and polling companies. There may be more instances of vaccine-skepticism or other forms of misinformation driving this in France. This may also be due to cultural norms whereby France is generally more skeptical of vaccines. 
 [Euronews, 2021](https://www.euronews.com/2021/01/18/why-do-so-few-people-in-france-want-to-take-the-covid-19-vaccine)
 
 
-2)	Japan is the most afraid of side effects from a vaccine, with 79.2% of respondents expressing a Strongly Agree or Agree opinion on worries for side effects for a vaccine. Singapore follows closely behind with 75.8% of participants agreeing with the comment.
+2)	Japan is the most afraid of side effects from a vaccine, with 79.2% of respondents expressing a Strongly Agree or Agree opinion on worries for side effects for a vaccine. Singapore follows closely behind with 75.8% of participants agreeing with the comment. Generally, all 3 Asian countries rank relatively high on this statement, with all 3 of them placing in the top 5 countries being most concerned. France has also ranked quite high, most possibly being linked to being most skeptical of a vaccine. 
 
 
 ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/insight2.png)
 
 
-Past vaccine development usually takes many years to develop, and that has caused some concerns, especially in Japan, which may have contributed to the lower confidence in vaccines and the greater concern with side effects, as shown in the visualisation.   
-[Japan Times, 2020](https://www.japantimes.co.jp/news/2020/11/25/national/science-health/japan-experts-coronavirus-vaccines-safety/)
+Past vaccine development usually takes many years to develop, and that has caused some concerns, especially in Japan, which may have contributed to the lower confidence in vaccines and the greater concern with side effects, as shown in the visualisation.   ([Japan Times, 2020](https://www.japantimes.co.jp/news/2020/11/25/national/science-health/japan-experts-coronavirus-vaccines-safety/))
 
 
 3) Males in general are more willing to take a vaccine this week as compared to females. This may be linked to the general worries about side effects for a vaccine, as females are more likely to be worried about side effects, which may in turn decrease their propensity to receive a vaccine. 
@@ -179,4 +185,8 @@ France is the least confident in its government, possibly due to its general lac
 
 ![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/insight4.png)
 
+5)	Singapore ranks quite low when asked if there would be any regrets for not taking the vaccine. This might be potentially due to Singapore's virus situation being well controlled, with only a few cases each day (at point of writing) compared to the other countries on the list. As such, the fear of side effects may outweigh the benefits of immunity in some respondents. 
 
+In comparison, the UK, with the highest death toll in the world per capita ([Neilson, 2021](https://www.9news.com.au/world/uk-worst-coronavirus-death-toll-world-wide/88809b56-f1c6-4f4f-89bf-2949f11f3784)), would regret the most. 
+
+![](C:/ISSS608/blog/_posts/2021-02-01-dataviz-makeover-2/insight5.png)

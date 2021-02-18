@@ -116,7 +116,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["AlternativeDesign.jpg","base-visual.PNG","dataviz-makeover-2_files/anchor-4.2.2/anchor.min.js","dataviz-makeover-2_files/bowser-1.9.3/bowser.min.js","dataviz-makeover-2_files/distill-2.2.21/template.v2.js","dataviz-makeover-2_files/jquery-1.11.3/jquery.min.js","dataviz-makeover-2_files/popper-2.6.0/popper.min.js","dataviz-makeover-2_files/tippy-6.2.7/tippy-bundle.umd.min.js","dataviz-makeover-2_files/tippy-6.2.7/tippy-light-border.css","dataviz-makeover-2_files/tippy-6.2.7/tippy.css","dataviz-makeover-2_files/tippy-6.2.7/tippy.umd.min.js","dataviz-makeover-2_files/webcomponents-2.0.0/webcomponents.js","insight1.png","insight2.png","insight3.png","insight3a.png","insight3b.png","insight4.png","Steps/Step1.png","Steps/Step10.png","Steps/Step11.png","Steps/Step12.png","Steps/Step13.png","Steps/Step14.png","Steps/Step15.png","Steps/Step16.png","Steps/Step17.png","Steps/Step18.png","Steps/Step19.png","Steps/Step2.png","Steps/Step20.png","Steps/Step21.png","Steps/Step22.png","Steps/Step23.png","Steps/Step24.png","Steps/Step25.png","Steps/Step26.png","Steps/Step27.png","Steps/Step28.png","Steps/Step29.png","Steps/Step3.png","Steps/Step30.png","Steps/Step31.png","Steps/Step32.png","Steps/Step33.png","Steps/Step34.png","Steps/Step35.png","Steps/Step36.png","Steps/Step37a.png","Steps/Step37b.png","Steps/Step37c.png","Steps/Step38.png","Steps/Step39.png","Steps/Step4.png","Steps/Step40.png","Steps/Step41.png","Steps/Step42.png","Steps/Step43.png","Steps/Step44.png","Steps/Step45.png","Steps/Step46.png","Steps/Step47.png","Steps/Step48.png","Steps/Step49.png","Steps/Step5.png","Steps/Step50.png","Steps/Step51.png","Steps/Step52.png","Steps/Step53.png","Steps/Step54.png","Steps/Step55.png","Steps/Step6.png","Steps/Step7.png","Steps/Step8.png","Steps/Step9.png"]}
+  {"type":"character","attributes":{},"value":["AlternativeDesign.jpg","base-visual.PNG","dataviz-makeover-2_files/anchor-4.2.2/anchor.min.js","dataviz-makeover-2_files/bowser-1.9.3/bowser.min.js","dataviz-makeover-2_files/distill-2.2.21/template.v2.js","dataviz-makeover-2_files/jquery-1.11.3/jquery.min.js","dataviz-makeover-2_files/popper-2.6.0/popper.min.js","dataviz-makeover-2_files/tippy-6.2.7/tippy-bundle.umd.min.js","dataviz-makeover-2_files/tippy-6.2.7/tippy-light-border.css","dataviz-makeover-2_files/tippy-6.2.7/tippy.css","dataviz-makeover-2_files/tippy-6.2.7/tippy.umd.min.js","dataviz-makeover-2_files/webcomponents-2.0.0/webcomponents.js","insight1.png","insight2.png","insight3.png","insight4.png","insight5.png","Steps/Step1.png","Steps/Step10.png","Steps/Step11.png","Steps/Step12.png","Steps/Step13.png","Steps/Step14.png","Steps/Step15.png","Steps/Step16.png","Steps/Step17.png","Steps/Step18.png","Steps/Step19.png","Steps/Step2.png","Steps/Step20.png","Steps/Step21.png","Steps/Step22.png","Steps/Step23.png","Steps/Step24.png","Steps/Step25.png","Steps/Step26.png","Steps/Step27.png","Steps/Step28.png","Steps/Step29.png","Steps/Step3.png","Steps/Step30.png","Steps/Step31.png","Steps/Step32.png","Steps/Step33.png","Steps/Step34.png","Steps/Step35.png","Steps/Step36.png","Steps/Step37a.png","Steps/Step37b.png","Steps/Step37c.png","Steps/Step38.png","Steps/Step39.png","Steps/Step4.png","Steps/Step40.png","Steps/Step41.png","Steps/Step42.png","Steps/Step43.png","Steps/Step44.png","Steps/Step45.png","Steps/Step46.png","Steps/Step47.png","Steps/Step48.png","Steps/Step49.png","Steps/Step5.png","Steps/Step50.png","Steps/Step51.png","Steps/Step52.png","Steps/Step53.png","Steps/Step54.png","Steps/Step55.png","Steps/Step6.png","Steps/Step7.png","Steps/Step8.png","Steps/Step9.png"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1522,14 +1522,17 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h3 id="clarity-1">2.1 Clarity</h3>
 <ol type="1">
 <li><p>Instead of a stacked bar chart, a likert scale chart is used to represent the diverging nature of the responses. This more clearly represents the proportions and visual scale of the differing opinions of different countries.</p></li>
-<li><p>The tooltip is used to relay important figures instead of using an entirely new chart to represent related data.</p></li>
-<li><p>As there is only 1 x-axis, there is no confusion on the size and scale of different bars. X-axis is also fixed to prevent shifting of the 0 value.</p></li>
+<li><p>As there is only 1 x-axis for the likert chart, there is no confusion on the size and scale of different bars. X-axis is also fixed to prevent shifting of the 0 value.</p></li>
+<li><p>The values for the uncertainty chart follows the statement being mentioned in the likert chart, so it is clear that both charts are talking about the same statement / question.</p></li>
+<li><p>The reference band for different confidence levels will be shaded slightly less dark compared to the mean value, with the confidence level being stated clearly to show uncertainty.</p></li>
+<li><p>Both visualisations are sorted in the same way, so as to allow for easier comparison across visualisations.</p></li>
 </ol>
 <h3 id="aesthetic-1">2.2 Aesthetic</h3>
 <ol type="1">
-<li><p>The colours selected are more in line with convention, with redder colours representing negative opinions. The colours are kept consistent even if options are changed with no repeating colours.</p></li>
+<li><p>The colours selected will be more in line with convention, with redder colours representing negative opinions.</p></li>
 <li><p>The legend is updated to reflect the options for opinions more clearly by describing all options (1 = Strongly Agree, 2 = Agree, 3 = Neutral, 4 = Disagree, 5 = Strongly Disagree)</p></li>
-<li><p>A reference line at 0% is used to further emphasize the diverging opinions for the likert scale chart.</p></li>
+<li><p>A reference line at 0% is used in the likert chart to further emphasize the diverging opinions.</p></li>
+<li><p>Different parameters are used to enable the user to select their preferred category for further analysis instead of having an aggregated data visualisation, as there might be variation of opinion between groups.</p></li>
 </ol>
 <h1 id="proposed-visualisation">3.0 Proposed Visualisation</h1>
 <p>Please view the interactive visualisation on Tableau Public <a href="https://public.tableau.com/profile/kai.chin#!/vizhome/Dataviz2_16132677593940/Dashboard1?publish=yes">here</a>.</p>
@@ -1641,7 +1644,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </tr>
 <tr class="odd">
 <td>19</td>
-<td>Create another parameter for demographic selection, this time filling in the values for the selected variables. Change the display name as required.</td>
+<td>Create another parameter for demographic selection, this time filling in the values for the selected variables. Change the display name as required. Use “(All)” in the parameter field to ensure that there is a master parameter selection.</td>
 <td><img src="Steps/Step19.png" width="500" /></td>
 </tr>
 <tr class="even">
@@ -1656,32 +1659,32 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </tr>
 <tr class="even">
 <td>22</td>
-<td>Plot a histogram to check if the auto-generated Tableau histogram bins are useable. As there are many values above age 105, create own bins.</td>
+<td>Create groups for the Age variable to bin the values to make them into categorical variables.</td>
 <td><img src="Steps/Step22.png" width="500" /></td>
 </tr>
 <tr class="odd">
 <td>23</td>
-<td>Create a new parameter called Bin size, use 5 as the current value. This will be used to bin the ages into a category.</td>
+<td>Bin sizes should be something reasonable, for example, a range of 5 years.</td>
 <td><img src="Steps/Step23.png" width="500" /></td>
 </tr>
 <tr class="even">
 <td>24</td>
-<td>Create a Calculated Field that bins the records into its associated age bin.</td>
+<td>Repeat for the group creation step for Household Children, grouping them into fewer categories.</td>
 <td><img src="Steps/Step24.png" width="500" /></td>
 </tr>
 <tr class="odd">
 <td>25</td>
-<td>Check if the bin sizes are correct.</td>
+<td>Repeat for the group creation step for Household size, grouping them into fewer categories.</td>
 <td><img src="Steps/Step25.png" width="500" /></td>
 </tr>
 <tr class="even">
 <td>26</td>
-<td>Add a filter for age and exclude any bins that are larger than 110. These are most probably data entry errors.</td>
+<td>Display the filter for the Demographic Selector Calculated Field.</td>
 <td><img src="Steps/Step26.png" width="500" /></td>
 </tr>
 <tr class="odd">
 <td>27</td>
-<td>Add a filter to exclude Null replies for the Question Selector variable.</td>
+<td>Add a filter to exclude Null replies for the Question Selector variable if any.</td>
 <td><img src="Steps/Step27.png" width="500" /></td>
 </tr>
 <tr class="even">
@@ -1691,7 +1694,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </tr>
 <tr class="odd">
 <td>29</td>
-<td>Double confirm that the Question Selector is sorted correctly.</td>
+<td>Confirm that the Question Selector is sorted correctly. If there are errors, select on an option and adjust with the arrows.</td>
 <td><img src="Steps/Step29.png" width="500" /></td>
 </tr>
 <tr class="even">
@@ -1862,16 +1865,15 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </table>
 <h1 id="derived-insights">5.0 Derived Insights</h1>
 <ol type="1">
-<li>France is the greatest “anti-vaccine” country, with the least confidence in a vaccine that they can take next week, with almost 40% of participants expressing a Strongly Disagree opinion for taking a vaccine next week.</li>
+<li>France is the most “anti-vaccine” country, with the least confidence in a vaccine that they can take next week, with almost 40% of participants expressing a Strongly Disagree opinion for taking a vaccine next week. It also has the smallest proportion of people agreeing with the statement, at only 39%.</li>
 </ol>
 <p><img src="insight1.png" /></p>
-<p>This has been supported by other surveys conducted by other agencies and polling companies. There may be more instances of vaccine-skepticism or other forms of misinformation driving this. This may also be due to cultural norms. <a href="https://www.euronews.com/2021/01/18/why-do-so-few-people-in-france-want-to-take-the-covid-19-vaccine">Euronews, 2021</a></p>
+<p>This has been supported by other surveys conducted by other agencies and polling companies. There may be more instances of vaccine-skepticism or other forms of misinformation driving this in France. This may also be due to cultural norms whereby France is generally more skeptical of vaccines. <a href="https://www.euronews.com/2021/01/18/why-do-so-few-people-in-france-want-to-take-the-covid-19-vaccine">Euronews, 2021</a></p>
 <ol start="2" type="1">
-<li>Japan is the most afraid of side effects from a vaccine, with 79.2% of respondents expressing a Strongly Agree or Agree opinion on worries for side effects for a vaccine. Singapore follows closely behind with 75.8% of participants agreeing with the comment.</li>
+<li>Japan is the most afraid of side effects from a vaccine, with 79.2% of respondents expressing a Strongly Agree or Agree opinion on worries for side effects for a vaccine. Singapore follows closely behind with 75.8% of participants agreeing with the comment. Generally, all 3 Asian countries rank relatively high on this statement, with all 3 of them placing in the top 5 countries being most concerned. France has also ranked quite high, most possibly being linked to being most skeptical of a vaccine.</li>
 </ol>
 <p><img src="insight2.png" /></p>
-<p>Past vaccine development usually takes many years to develop, and that has caused some concerns, especially in Japan, which may have contributed to the lower confidence in vaccines and the greater concern with side effects, as shown in the visualisation.<br />
-<a href="https://www.japantimes.co.jp/news/2020/11/25/national/science-health/japan-experts-coronavirus-vaccines-safety/">Japan Times, 2020</a></p>
+<p>Past vaccine development usually takes many years to develop, and that has caused some concerns, especially in Japan, which may have contributed to the lower confidence in vaccines and the greater concern with side effects, as shown in the visualisation. (<a href="https://www.japantimes.co.jp/news/2020/11/25/national/science-health/japan-experts-coronavirus-vaccines-safety/">Japan Times, 2020</a>)</p>
 <ol start="3" type="1">
 <li>Males in general are more willing to take a vaccine this week as compared to females. This may be linked to the general worries about side effects for a vaccine, as females are more likely to be worried about side effects, which may in turn decrease their propensity to receive a vaccine.</li>
 </ol>
@@ -1881,6 +1883,11 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </ol>
 <p>France is the least confident in its government, possibly due to its general lack of confidence in effective vaccines.</p>
 <p><img src="insight4.png" /></p>
+<ol start="5" type="1">
+<li>Singapore ranks quite low when asked if there would be any regrets for not taking the vaccine. This might be potentially due to Singapore’s virus situation being well controlled, with only a few cases each day (at point of writing) compared to the other countries on the list. As such, the fear of side effects may outweigh the benefits of immunity in some respondents.</li>
+</ol>
+<p>In comparison, the UK, with the highest death toll in the world per capita (<a href="https://www.9news.com.au/world/uk-worst-coronavirus-death-toll-world-wide/88809b56-f1c6-4f4f-89bf-2949f11f3784">Neilson, 2021</a>), would regret the most.</p>
+<p><img src="insight5.png" /></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
