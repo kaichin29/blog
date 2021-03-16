@@ -1,0 +1,68 @@
+---
+title: "Dataviz Makeover 3"
+description: |
+  A short description of the post.
+author:
+  - name: LIM Kai Chin
+    url: https://www.linkedin.com/in/kai-chin-lim-a5030b156/
+date: 03-16-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# 1.0 Critique of Data Visualisation 
+
+The original visualisation can be seen here. 
+![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/base_visual.PNG)
+
+### 1.1 Clarity
+
+1)	The y-axes of the line charts are not synchronised, which might lead to users misinterpreting the pattern and scale of the number of conflicts occurring, especially when comparing large number of events like Battles, versus small, one-off events like Explosions. 
+2)	There is no count of events occurring on the plotted map, which leaves to the reader to estimate the counts for each conflict event.
+3)	The dot plot on the map considers the entire time series’ worth of data, which removes the chronological aspect of the data. 
+4)	There are no reference points on the line graph to show the count, leaving the user to extrapolate the from the y-axis. 
+5)  The sub-events are not plotted, which may be misleading considering that there are sub-events that are "pacifist" in nature, such as "Peaceful Protests", "Agreement", or "Change of Group / Activity".  
+
+### 1.2 Aesthetics
+
+1)	The chosen colours do not show up distinctively on the map, especially in locations that have many instances of conflicts occurring. 
+2)	There is no transparency in the plotted points on the map, leading to overlapping of plotted dots in locations where there are many conflicts happening, for example, in the area depicting Rakhine state in Myanmar. 
+3)	The y-axis titles of the line charts were not changed, leaving it as “count of sheet1”, which is not very professional and clean.
+
+
+# 2.0 Alternative Design
+
+The proposed design is as follows. 
+
+![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/base_visual.PNG) ## To update
+
+
+### 2.1 Clarity
+1)	The y-axes of the line charts are synchronised across categories to improve the visualisation of the scale. 
+2)	Different maps are used to view different levels of data, with heatmaps to view intensity of conflicts, a pie chart map to visualise the breakdown of conflicts by area, and a proportionate symbol map to show a detailed representation of the various events that occurred. 
+3)	Time series can be visualised using a trellis map plot to visualise the number of conflicts that occur over time. 
+4)	The total number of events that occurred are shown as values on the dashboard in the detailed proportionate symbol map. This keeps the total events in view even as the user is deep diving into the singular events.
+
+### 2.2 Aesthetic
+1)	The colours are kept consistent across the maps. Transparency is present for the detailed map to allow some of the overplotted dots to show through. 
+2)	The different plots are controlled using a parameter, with the user being able to choose all plots for a quick overview, or different plots to use the correct plot for the correct level of analysis. 
+3)	Axis titles were changed to ensure that the graphs remained readable. 
+4)	Various parameters are present for Country, State, Event Type, Sub-event type, and Year to allow the user to control their preferences accordingly.
+
+
+# 3.0 Proposed Visualisation
+
+Please view the interactive visualisation on Tableau Public [here](https://public.tableau.com/profile/kai.chin#!/vizhome/Dataviz2_16132677593940/Dashboard1?publish=yes).
+
+# 4.0 Step-by-Step Guide
+
+### 4.1 Data Preparation
+No | Step | Action
+---|------------------------|----------------
+1 | In the data source tab, select the New Union function and import all data sheets using a manual connection.  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step1.png){ width=250px}
