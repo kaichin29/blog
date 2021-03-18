@@ -43,13 +43,13 @@ The original visualisation can be seen here.
 
 The proposed design is as follows. 
 
-![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/AlternativeDesign.jpg){ width=500px}
+![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/AlternativeDesign2.jpg)
 
 
 ### 2.1 Clarity
 1)	The y-axes of the line charts are synchronised across categories to improve the visualisation of the scale. 
-2)	Different maps are used to view different levels of data, with heatmaps to view intensity of conflicts, a pie chart map to visualise the breakdown of conflicts by area, and a proportionate symbol map to show a detailed representation of the various events that occurred. 
-3)	Time series can be visualised using a trellis map plot to visualise the number of conflicts that occur over time. 
+2)	Different maps are used to view different levels of data, with a pie chart map to visualise the breakdown of conflicts by area, and a proportionate symbol map to show a detailed representation of the various events that occurred. 
+3)	Time series can be visualised using a trellis map plot to visualise the number of conflicts that occur over time. Bar charts are used to view a breakdown of all events occurring in the country.
 4)	The total number of events that occurred are shown as values on the dashboard in the detailed proportionate symbol map. This keeps the total events in view even as the user is deep diving into the singular events.
 
 ### 2.2 Aesthetic
@@ -82,52 +82,41 @@ No | Step | Action
 11 | Create a calculated field called display for the View parameter. This will be used for display selection later.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step11.png){ width=500px}
 12 | Create a calculated field called AGG to count the number of events that had occurred.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step12.png)
 
-### 4.2 Heatmap
 
-No | Step | Action
----|------------------------|----------------
-1 | Create a calculated field called Full count to consider the blank events for each year and country (e.g., Malaysia in 2010).    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step13.png){ width=500px}
-2 | Drag Long Selection and Lat Selection into the columns and rows respectively.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step14.png){ width=500px}
-3 | Drag Count into the colour, Country into Detail, and change the mark to a density plot.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step15.png){ width=250px}
-4 | Select the colour mark and change the colours, intensity, and opacity to suit preferences.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step16.png){ width=250px}
-5 | Drag the relevant parameters into the filter tab.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step17.png){ width=250px}
-6 | Click the right arrow, select the Apply to Worksheets option, and choose the All Using This Data Source. This will apply this filter to all future worksheets.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step18.png){ width=500px}
-7 | Put the Display calculated field into the filter list. Select the custom value list, type in “Heatmap” and select the “+” option to add this to the list. Repeat for “All”.  This will hide the visualisation when other options are selected in the “Select a view” parameter.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step20.png){ width=500px}
-8 | The heatmap visualisation will look like this. This allows users to visualise the intensity of conflict, where dark blue represents less conflict intensity, and those that are yellow represent greater conflict intensity  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step21.png){ width=500px}
 
-### 4.3 Pie Chart
+### 4.2 Pie Chart
 
 No | Step | Action
 ---|------------------------|----------------
 1 | Drag Long Selection and Lat Selection into the column and row respectively.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step22.png){ width=500px}
 2 | Change the mark to a pie chart, drag event types into Colour, SUM(Count) into Size and Angle. Add the Display and Count into the Level of Detail mark. Add SUM(Count) into the Text mark. This will create a pie chart on the map visualisation.    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step23.png){ width=250px}
 3 | Add in the relevant parameters in the filters tab.     | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step24.png){ width=250px}
-4 | Repeat the step for Display and use Map instead of Heatmap. This will display the visualisation only when Map or All is selected in the “Select a View” parameter.    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step25.png){ width=500px}
+4 | Put the Display calculated field into the filter list. Select the custom value list, type in “Map” and select the “+” option to add this to the list. Repeat for “All”.  This will hide the visualisation when other options are selected in the “Select a view” parameter.  This will display the visualisation only when Map or All is selected in the “Select a View” parameter.    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step25.png){ width=500px}
 5 | Change colours and opacity to match preferences.    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step26.png){ width=500px}
 6 | The basic pie chart map is created. This allows users to pick and choose the various countries, cumulative events over years, and the breakdown of event type in the country and state level.    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step27.png){ width=500px}
 
 
-### 4.4 Trellis Maps
+### 4.3 Trellis Maps
 
 No | Step | Action
 ---|------------------------|----------------
 1 | Place AGG(Full Count), Country and Year in the Level of Detail mark. Place AGG(Full Count) into the Size mark.    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step28.png){ width=250px}
 2 | Place Year and Long Selection into columns, and Lat Selection into Rows. This will create a proportionate geographical map.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step29.png){ width=500px}
 3 | Add in the relevant parameters for the filter tab. | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step30.png){ width=250px}
-4 | Repeat the step for the Display calculated field, this time using “Trellis” instead of “Heatmap”. | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step31.png){ width=500px}
+4 | Repeat the step for the Display calculated field, this time using “Trellis” instead of “Map”. | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step31.png){ width=500px}
 
-### 4.5 Detailed Map
+### 4.4 Detailed Map
 
 No | Step | Action
 ---|------------------------|----------------
 1 | Change the mark type to a Shape, drag Event Type into Colour, Sub Event Type into Shape, and add Event ID Cnty, Year, Country, & State, into the Level of Detail mark.  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step32.png){ width=250px}
 2 | Drag the Longitude and Latitude into the Columns and Rows respectively. Ensure that they are both in the Dimension format.  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step33.png){ width=500px}
 3 | Add in the relevant parameters for the filter tab.  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step34.png){ width=250px}
-4 | Repeat the step for Display and use Detailed instead of Heatmap. | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step35.png){ width=500px}
+4 | Repeat the step for Display and use Detailed instead of Map | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step35.png){ width=500px}
 5 | Change opacity and colour to suit preferences.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step36.png){ width=500px}
 6 | The Detailed visualisation will look similar to this.  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step37.png){ width=500px}
 
-### 4.6 Line Chart
+### 4.5 Line Chart
 
 No | Step | Action
 ---|------------------------|----------------
@@ -141,6 +130,17 @@ No | Step | Action
 8 | Change the Level 2 mark to a circle mark.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step45.png){ width=250px}
 9 | Select Show Mark Labels to ensure that the text is shown on the plotted points.    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step46.png){ width=250px}
 10 | The line chart will look something like this. This will be used to visualise the time series at various levels of aggregation, for All, Country, or State level, & segregated into Event and Sub-event categories.     | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step47.png){ width=500px}
+
+### 4.6 Bar Chart
+
+No | Step | Action
+---|------------------------|----------------
+1 | Use view breakdown, CNT(Event Id Cnty), and Event Selection into the various marks as seen in the snapshot. Change marks to a bar chart.  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step56.png){ width=250px}
+2 | Move Country into columns, and Event Selection and CNT(Event id Cnty) into rows. | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step57.png){ width=250px}
+3 | Add in the relevant parameters for the filter tab.  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step58.png){ width=250px}
+4 | Repeat the step for Display and use "Bar chart" instead of "Map"   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step60.png){ width=500px}
+5 | The bar chart will look similar to this. This explains the breakdown of events in each country.  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step59.png){ width=500px}
+
 
 ### 4.7 Dashboard Preparation
 
