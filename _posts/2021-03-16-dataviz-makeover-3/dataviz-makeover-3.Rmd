@@ -9,6 +9,9 @@ date: 03-16-2021
 output:
   distill::distill_article:
     self_contained: false
+    toc: true
+    toc_float: true
+    toc_depth: 3
 ---
 
 
@@ -40,7 +43,7 @@ The original visualisation can be seen here.
 
 The proposed design is as follows. 
 
-![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/base_visual.PNG) ## To update
+![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/AlternativeDesign.jpg){ width=500px}
 
 
 ### 2.1 Clarity
@@ -63,6 +66,139 @@ Please view the interactive visualisation on Tableau Public [here](https://publi
 # 4.0 Step-by-Step Guide
 
 ### 4.1 Data Preparation
+
 No | Step | Action
 ---|------------------------|----------------
-1 | In the data source tab, select the New Union function and import all data sheets using a manual connection.  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step1.png){ width=250px}
+1 | Import the data into Tableau. Change Latitude and Longitude into their respective Geographical Role.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step1.png){ width=250px}
+2 | Rename Admin1 to State, Location to City, and create a hierarchy.  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step2.png){ width=500px}
+3 | Repeat this for Event Type and Sub Event Type. Reorder both Location and Event hierarchy suitable to their levels.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step3.png){ width=250px}
+4 | Create a calculated field for Count, putting 1 as the input.  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step4.png){ width=500px}
+5 | Create a parameter called Level, with Country and State om the selection list.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step5.png){ width=500px}
+6 | Create a calculated field called Lat (Country) with the following formula. Repeat this for Longitude.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step6.png){ width=500px}
+7 | Repeat the previous step for State Level.    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step7.png){ width=500px}
+8 | Create a calculated field for Longitude Selection with the following formula. This will select the correct longitude aggregation when the respective view is selected. Repeat for Latitude  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step8.png){ width=500px}
+9 | Ensure that the created Latitude and Longitude fields are in the correct geographical role.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step9.png){ width=250px}
+10 | Create a parameter for view selection for the various graphs and map visualisations. List out the map titles using a custom list. This list will be used for selection later.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step10.png){ width=500px}
+11 | Create a calculated field called display for the View parameter. This will be used for display selection later.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step11.png){ width=500px}
+12 | Create a calculated field called AGG to count the number of events that had occurred.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step12.png)
+
+### 4.2 Heatmap
+
+No | Step | Action
+---|------------------------|----------------
+1 | Create a calculated field called Full count to consider the blank events for each year and country (e.g., Malaysia in 2010).    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step13.png){ width=500px}
+2 | Drag Long Selection and Lat Selection into the columns and rows respectively.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step14.png){ width=500px}
+3 | Drag Count into the colour, Country into Detail, and change the mark to a density plot.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step15.png){ width=250px}
+4 | Select the colour mark and change the colours, intensity, and opacity to suit preferences.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step16.png){ width=250px}
+5 | Drag the relevant parameters into the filter tab.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step17.png){ width=250px}
+6 | Click the right arrow, select the Apply to Worksheets option, and choose the All Using This Data Source. This will apply this filter to all future worksheets.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step18.png){ width=500px}
+7 | Put the Display calculated field into the filter list. Select the custom value list, type in “Heatmap” and select the “+” option to add this to the list. Repeat for “All”.  This will hide the visualisation when other options are selected in the “Select a view” parameter.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step20.png){ width=500px}
+8 | The heatmap visualisation will look like this. This allows users to visualise the intensity of conflict, where dark blue represents less conflict intensity, and those that are yellow represent greater conflict intensity  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step21.png){ width=500px}
+
+### 4.3 Pie Chart
+
+No | Step | Action
+---|------------------------|----------------
+1 | Drag Long Selection and Lat Selection into the column and row respectively.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step22.png){ width=500px}
+2 | Change the mark to a pie chart, drag event types into Colour, SUM(Count) into Size and Angle. Add the Display and Count into the Level of Detail mark. Add SUM(Count) into the Text mark. This will create a pie chart on the map visualisation.    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step23.png){ width=250px}
+3 | Add in the relevant parameters in the filters tab.     | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step24.png){ width=250px}
+4 | Repeat the step for Display and use Map instead of Heatmap. This will display the visualisation only when Map or All is selected in the “Select a View” parameter.    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step25.png){ width=500px}
+5 | Change colours and opacity to match preferences.    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step26.png){ width=500px}
+6 | The basic pie chart map is created. This allows users to pick and choose the various countries, cumulative events over years, and the breakdown of event type in the country and state level.    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step27.png){ width=500px}
+
+
+### 4.4 Trellis Maps
+
+No | Step | Action
+---|------------------------|----------------
+1 | Place AGG(Full Count), Country and Year in the Level of Detail mark. Place AGG(Full Count) into the Size mark.    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step28.png){ width=250px}
+2 | Place Year and Long Selection into columns, and Lat Selection into Rows. This will create a proportionate geographical map.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step29.png){ width=500px}
+3 | Add in the relevant parameters for the filter tab. | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step30.png){ width=250px}
+4 | Repeat the step for the Display calculated field, this time using “Trellis” instead of “Heatmap”. | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step31.png){ width=500px}
+
+### 4.5 Detailed Map
+
+No | Step | Action
+---|------------------------|----------------
+1 | Change the mark type to a Shape, drag Event Type into Colour, Sub Event Type into Shape, and add Event ID Cnty, Year, Country, & State, into the Level of Detail mark.  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step32.png){ width=250px}
+2 | Drag the Longitude and Latitude into the Columns and Rows respectively. Ensure that they are both in the Dimension format.  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step33.png){ width=500px}
+3 | Add in the relevant parameters for the filter tab.  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step34.png){ width=250px}
+4 | Repeat the step for Display and use Detailed instead of Heatmap. | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step35.png){ width=500px}
+5 | Change opacity and colour to suit preferences.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step36.png){ width=500px}
+6 | The Detailed visualisation will look similar to this.  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step37.png){ width=500px}
+
+### 4.6 Line Chart
+
+No | Step | Action
+---|------------------------|----------------
+1 | Create a Breakdown parameter, with All and Country as the custom list for selection.  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step38.png){ width=500px}
+2 | Create another parameter for Event level, with Event and Sub Event as the custom list for selection.  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step39.png){ width=500px}
+3 | Create a calculated field called Event Selection with the following formula to select the view level for events.  | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step40.png){ width=500px}
+4 | Create a calculated field called View Breakdown with the following formula to select the breakdown level.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step41.png){ width=500px}
+5 | Place event selection and YEAR(Year) into columns, and CNT(Event Id Cnty) into Rows. Add another instance of CNT(Event Id Cnty) for a dual axis.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step42.png){ width=500px}
+6 | Right-click on the second axis, ensure that Synchronize Axis is checked, and ensure that Show Header is unchecked to remove the secondary axis.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step43.png){ width=250px}
+7 | Change the Level 1 mark to a Line mark, Use View Breakdown for colour, and Event selection for Level of Detail.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step44.png){ width=250px}
+8 | Change the Level 2 mark to a circle mark.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step45.png){ width=250px}
+9 | Select Show Mark Labels to ensure that the text is shown on the plotted points.    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step46.png){ width=250px}
+10 | The line chart will look something like this. This will be used to visualise the time series at various levels of aggregation, for All, Country, or State level, & segregated into Event and Sub-event categories.     | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step47.png){ width=500px}
+
+### 4.7 Dashboard Preparation
+
+No | Step | Action
+---|------------------------|----------------
+1 | Drag SUM(Count) into the text box. Add in the relevant parameters in the filters tab as required.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step48.png){ width=500px}
+2 | Format the Label as desired.   | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step49.png){ width=500px}
+3 | The sheet will look something like this.    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step50.png){ width=250px}
+4 | Add the Display calculated field, and use “Detailed” for the sheet. This will act as a total count and aggregate numbers in the dashboard and will only appear when the Detailed map is selected. | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step51.png){ width=500px}
+5 | Create a new worksheet, add Event Type to the text box, and repeat the previous steps. This will create a worksheet that will showcase the breakdown of event types.    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step52.png){ width=500px}
+
+### 4.8 Dashboard 
+
+No | Step | Action
+---|------------------------|----------------
+1 | Drag all relevant sheets into the dashboard. Remove any repeated legends that might appear.    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step53.png){ width=500px}
+2 | Select the down arrow and ensure that the parameter filters are applied to all using the data source. Repeat for any other parameters in the dashboard.    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step54.png){ width=500px}
+3 | The type of charts, level of view, event dates, country, state, event and sub event types can all be changed depending on the information that the user would like to view.    | ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/Steps/Step55.png){ width=500px}
+
+# 5.0 Derived Insights
+
+1) There was a significant spike in violence against civilians in 2016. 
+![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/insight1a.png){ width=500px}
+
+The data was further drilled into and viewed at country level. 
+![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/insight1b.png){ width=500px}
+
+A significant proportion of violence against civilians (2,400 events out of 2,700 events) were from the Philippines. 2016 was when current President Duterte was elected. He was elected on a campaign promise to be tough on crime and to eliminate drug traffickers )[The Guardian, 2016](https://www.theguardian.com/world/2016/jul/01/philippines-president-rodrigo-duterte-urges-people-to-kill-drug-addicts)), creating a climate where anyone can be easily killed in the “war on drugs” ([Amnesty International, 2016](https://www.amnesty.org/en/latest/news/2016/10/philippines-dutertes-hundred-days-of-carnage/)). Although it seems to be decreasing, there still seems to be significant levels of violence against civilians in the Philippines. 
+
+
+2) The country with the greatest number of battles over the past 10 years is in Myanmar. 
+
+![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/insight2a.png){ width=500px}
+
+Drilling down into the data from Myanmar, the largest number of battles happened in Shan State, with 2,040 battles occurring. A similar situation is happening in Kachin state. ![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/insight2b.png){ width=500px}
+
+There has been an ongoing ethnic conflict and independence movement in the Shan state against the Myanmar government for almost 50 years ([Graceffo,2019](https://southeastasiaglobe.com/inside-shan-states-endless-war-for-independence/)). Both Shan and Kachin have armed groups that have allied into a coalition called the Northern Alliance, which has been engaging in various battles with the Myanmar Army ([Human Rights Watch, 2019](https://www.hrw.org/news/2019/09/07/myanmar-civilians-caught-shan-state-fighting)).
+
+
+3) Most battles occur in 3 main areas, Northern Myanmar, Southern Thailand, and Southern Philippines. This is consistent with the various conflicts that are occurring in the ASEAN region. Besides Northern Myanmar that was explained above, both South Thailand and South Philippines have independence movements by the Muslim minorities that reside there.
+
+![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/insight3a.png){ width=500px}
+
+Drilling down into the time series, disregarding 2020 as it was a pandemic year with many lockdowns in many of the regions, it seems like the number of battles is trending upwards from 2014 to 2019.  
+
+![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/insight3c.png){ width=500px}
+By dividing it into country level, we can see that Myanmar and the Philippines have the greatest number of battles, and it may trend further upwards considering recent developments in Myanmar, with a coup d'etat occurring in Feburary 2021. 
+![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/insight3b.png){ width=500px}
+
+
+4) There are some missing data in the dataset. The first entries for Indonesia, the Philippines, and Malaysia are 2015, 2016, and 2018 respectively. There seemingly is a downward trend for the Philippines from 2016 to 2019, which may be derived from a decreasing amount of violence against civilians (as shown in point 3). 
+![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/insight4.png){ width=500px}
+
+5) Most of the explosions have occurred in Thailand, with approximately 56% of explosions over the entire time period, with 2,300 events.  
+
+
+![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/insight5a.png){ width=500px}
+Of this, about 1,600 events occurred in the Southern states of Narathiwat and Pattani. 
+
+![](C:/ISSS608/blog/_posts/2021-03-16-dataviz-makeover-3/insight5b.png){ width=500px}
+
