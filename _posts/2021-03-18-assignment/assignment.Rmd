@@ -17,8 +17,8 @@ output:
 ---
 
 
-```{r setup }
-knitr::opts_chunk$set(echo = FALSE, tidy = TRUE)
+```{r setup  }
+knitr::opts_chunk$set(warning= FALSE)
 ```
 
 
@@ -49,16 +49,16 @@ Current PSA dashboards and visuliasations were created many years ago and have n
 
 This first graph showcases the average PM productivity across all terminals. 
 
-![](C:/ISSS608/blog/_posts/2021-03-18-assignment/CurrentViz1.png)
+![](C:/ISSS608/blog/_posts/2021-03-18-assignment/CurrentViz1.png){width=250px}
 
 The details of each movement has been lost in the aggregation. Only a simple average is present. There are also no counts being presented in the current visualisation, thus, the user cannot check the total number of movements within the dataset. As terminals operate independently of each other, productivity across terminals are not related, therefore it makes little sense to visualise the productivity values as a line graph. There is no legend to describe what each line represents (red = ship ops, orange / purple = ITH, blue = shifting, black = overall). Colours are inconsistent, as different colours represent the same type of movement.  
 
 
-![](C:/ISSS608/blog/_posts/2021-03-18-assignment/CurrentViz2.png)
+![](C:/ISSS608/blog/_posts/2021-03-18-assignment/CurrentViz2.png){width=250px}
 
 The percentage for each component of the stacked bar chart is not shown, leaving the reader to figure out the approximate percentage of each productivity category. As this view is too aggregated, there is limited possibility of deriving insights from why different terminals are performing differently. Every thing is based on a simple average of productivities. 
 
-![](C:/ISSS608/blog/_posts/2021-03-18-assignment/CurrentViz3.png) 
+![](C:/ISSS608/blog/_posts/2021-03-18-assignment/CurrentViz3.png) {width=250px}
 
 The categories are too wide in this view, considering that the <15 category takes up to at least 75% of movements in each terminal. More granularity should be introduced, with more categories such as "0-5", "5-10", and "10-15", which would give a better breakdown of waiting time. 
 
@@ -78,8 +78,6 @@ Data from March 2019 is extracted from the PSA operations database. This databas
 
 # Preparing packages
 packages = c("tidyverse", "ggstatsplot", "ggpubr", "corrplot","heatmaply", "dendextend", "seriation", "readr" , "parallelPlot", "treemap", "ggthemes", "RColorBrewer", "forcats", "GGally", "viridis", "parallelPlot", "plotly", "lubridate", "d3treeR")
-
-devtools::install_github("timelyportfolio/d3treeR")
 
 for (p in packages){
     if(!require(p, character.only = T)){
@@ -201,13 +199,13 @@ vsize <- "PM_WAIT_TIME_Q"
 ## treemap for waiting time, group by LENGTH_Q
 tree_len <- treemap(PM_group, index = c(index1, index2), vSize = vsize, palette = "Blues", title = "Treemap for PM Waiting time by CNTR Specifications and Shift", fontsize.labels = c(15,10))
 
-tree_len
+
 
 index3 <- "CNTR_spec"
 ## treemap for waiting time, group by terminal ID
 tree_cntr <- treemap(PM_group, index = c(index3, index2), vSize = vsize, palette = "Blues", title = "Treemap for PM Waiting time by CNTR Specifications and Shift", fontsize.labels = c(15,10))
 
-tree_cntr
+
 
 ## treemap for waiting time, group by terminal ID
 
@@ -216,14 +214,14 @@ index4 <- "Terminal"
 tree_term <- treemap(PM_group, index = c(index3, index4, index2), vSize = vsize, palette = "Blues", title = "Treemap for PM Waiting time by CNTR Specifications and Shift", fontsize.labels = c(15,10))
 
 
-tree_term
+
 
 ## treemap mapping cntr spec 
 index5 <- c("LENGTH_Q", "DG", "Reefer")
 tree_DG <- treemap(PM_group, index = index5, vSize = vsize, palette = "Blues", title = "Treemap for PM Waiting time by CNTR Specifications and Shift", fontsize.labels = c(15,10))
 
 
-tree_DG
+
 
 ```
 
@@ -267,9 +265,9 @@ bar_count <- ggplot(data = PM_group, aes_string(x = bar_var, fill = bar_fill))+
   scale_fill_brewer(palette = "BuPu")
 
 
-ggplotly(bar_count)
+p1 <- ggplotly(bar_count)
 
-
+p1
 
 ## changing variables and changing bar type
 
@@ -285,8 +283,9 @@ bar_DG <- ggplot(data = PM_group, aes_string(x = bar_var2, fill = bar_fill))+
   facet_wrap(as.formula(paste("~", bar_wrap2)), scales = bar_scale)+
   scale_fill_brewer(palette = "BuPu")
 
-ggplotly(bar_DG)
+p2 <- ggplotly(bar_DG)
 
+p2
 ## free y axis for barID, facet by terminal ID 
 
 bar_fill2 <- "MOVE_OP_C"
@@ -299,7 +298,9 @@ bar_ID <- ggplot(data = PM_group, aes_string(x = bar_var, fill = bar_fill2))+
   facet_wrap(as.formula(paste("~", bar_wrap2)), scales = bar_scale2)+
   scale_fill_brewer(palette = "BuPu")
 
-ggplotly(bar_ID)
+p3 <- ggplotly(bar_ID)
+
+p3
 
 ``` 
 `plot_ly` from the plotly package was also experimented with, however, it does not allow for faceting without additional functions. As such, `ggplotly` will be used instead for the final chart. 
@@ -310,12 +311,17 @@ plot_index1 <- "LENGTH_Q"
 plot_fill1 <- "MOVE_OP_C"
 
 
-PM_group %>%
-    group_by(Terminal) %>%
-    do(p =plot_ly(., x = ~!!as.name(plot_index1), color = ~!!as.name(plot_fill1), colors = "BuPu") %>% 
-    add_histogram() %>%  
-    layout(barmode = "stack", title= "Length of container by count, breakdown by Terminal ID", showlegend = FALSE, xaxis = list(title = "Terminal ID", tickangle = -45), yaxis = list(title = "Count"))) %>%  ##  barmode = "stack", "relative" and "group" 
-    subplot(shareX = TRUE, shareY = TRUE, titleX = FALSE)## stacking bar charts
+p4 <- PM_group %>%
+  group_by(Terminal) %>%
+  do(p =plot_ly(., x = ~!!as.name(plot_index1), color = ~!!as.name(plot_fill1), colors = "BuPu") %>% 
+       add_histogram() %>%  
+       layout(barmode = "stack", title= "Length of container by count, breakdown by Terminal ID", 
+              showlegend = FALSE, 
+              xaxis = list(title = "Terminal ID", tickangle = -45), 
+              yaxis = list(title = "Count"))) %>%  ##  barmode = "stack", "relative" and "group" 
+  subplot(shareX = TRUE, shareY = TRUE, titleX = FALSE)## stacking bar charts
+
+p4
 
 
 ```
@@ -347,7 +353,9 @@ hist_wait <- ggplot(data = PM_group, aes_string(x = hist_var), fill = hist_fill)
   theme_few()+
   scale_fill_brewer(palette = "BuPu")
 
-ggplotly(hist_wait)
+p5 <- ggplotly(hist_wait)
+
+p5
 
 ## creating data subset to compare difference
 
@@ -366,7 +374,9 @@ hist_sub <- ggplot(data = PM_Terminal, aes_string(x = hist_var, fill = hist_fill
   theme_few()+
   group_activator
 
-ggplotly(hist_sub)
+p6 <- ggplotly(hist_sub)
+
+p6
 
 #Histogram based on terminal ID
 
@@ -378,7 +388,9 @@ hist_term <- ggplot(data = PM_group, aes_string(x = hist_var, fill = hist_fill))
   facet_wrap(as.formula(paste("~", hist_wrap2)), labeller ="label_both" )+
   theme_few()
 
-ggplotly(hist_term)
+p7 <- ggplotly(hist_term)
+
+p7
 
 ## adding free_y scale
 scale <- "free_y" #"fixed" is other choice
@@ -389,7 +401,9 @@ hist_spec <- ggplot(data = PM_group, aes(x = PM_TRAVEL_TIME_Q, fill = Terminal))
   theme_few()+
   scale_fill_brewer(palette = "BuPu")
 
-ggplotly(hist_spec)
+p8 <- ggplotly(hist_spec)
+
+p8
 
 scale2 <- "fixed" #"fixed" is other choice
 hist_fill2 <- "Terminal"
@@ -410,11 +424,9 @@ hist_hour <- ggplot(data = PM_group, aes_string(x = hist_var, fill = hist_fill2)
   ref_line+
   scale_fill_brewer(palette = "BuPu")
 
-ggplotly(hist_hour)
-#
-#
+p9 <- ggplotly(hist_hour)
 
-
+p9
 ```
 The majority of the events have a 5 - 10 minute waiting time. The distribution is approximately normal, with a left skew. The tail is relatively long, which means that there are events with many long waiting times. In this case, a potential exploration can be done to determine the causes of these long waiting times, as these would be the ones that would bring up the mean waiting time for PM operations. Once the root cause is determined, key actions should be taken to remedy those issues. 
 
@@ -457,7 +469,9 @@ inputColumns1 <- c(TRUE,
                   TRUE,
                   TRUE)
 histoVis <- rep(TRUE, ncol(PM_parallel))
-parallelPlot(data = PM_parallel, keptColumns = inputColumns1, categorical = categorical1, refColumnDim = "LENGTH_Q", rotateTitle = TRUE, histoVisibility = histoVis)
+p10 <- parallelPlot(data = PM_parallel, keptColumns = inputColumns1, categorical = categorical1, refColumnDim = "LENGTH_Q", rotateTitle = TRUE, histoVisibility = histoVis)
+
+p10
 
 ```
 
@@ -518,17 +532,18 @@ ggbetweenstats(data = PM_Terminal, x = CNTR_spec, y = PM_WAIT_TIME_Q, type = "np
 #boxviolin
 
 #box & np + pairwaise display = "s"
-p1 <- ggbetweenstats(data = PM_Terminal, x = MOVE_OP_C, y = PM_WAIT_TIME_Q, plot.type = "box", type = "np", pairwise.display = "s")
+box <- ggbetweenstats(data = PM_Terminal, x = MOVE_OP_C, y = PM_WAIT_TIME_Q, plot.type = "box", type = "np", pairwise.display = "s")
 
-ggplotly(p1)
+p11 <- ggplotly(box)
+p11
 ```
 The interactive version built using `ggplotly` has removed all the statistical tests that are inherent in the `ggbetweenstats` function. As a result, the decision is made to remove the interactivity function in the final Shiny environment, considering that the outliers can be easily filtered out using other methods when deep-diving into anomalies. 
 
 ```{r grouped box plot}
 
-grouped_ggbetweenstats(data = PM_Terminal, x = LENGTH_Q, y = PM_WAIT_TIME_Q, grouping.var = Terminal, type = "np")
+p12 <- grouped_ggbetweenstats(data = PM_Terminal, x = LENGTH_Q, y = PM_WAIT_TIME_Q, grouping.var = Terminal, type = "np")
 
-
+p12
 
 
 ```
