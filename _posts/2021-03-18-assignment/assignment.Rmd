@@ -58,7 +58,7 @@ The details of each movement has been lost in the aggregation. Only a simple ave
 
 The percentage for each component of the stacked bar chart is not shown, leaving the reader to figure out the approximate percentage of each productivity category. As this view is too aggregated, there is limited possibility of deriving insights from why different terminals are performing differently. Every thing is based on a simple average of productivities. 
 
-![](C:/ISSS608/blog/_posts/2021-03-18-assignment/CurrentViz3.png) {width=100px}
+![](C:/ISSS608/blog/_posts/2021-03-18-assignment/CurrentViz3.png){width=100px}
 
 The categories are too wide in this view, considering that the <15 category takes up to at least 75% of movements in each terminal. More granularity should be introduced, with more categories such as "0-5", "5-10", and "10-15", which would give a better breakdown of waiting time. 
 
@@ -76,7 +76,7 @@ Firstly, to prepare the data that we will be using for experimentation. Data fro
 ```{r prep}
 
 # Preparing packages
-packages = c("tidyverse", "ggstatsplot", "ggpubr", "corrplot","heatmaply", "dendextend", "seriation", "readr" , "parallelPlot", "treemap", "ggthemes", "RColorBrewer", "forcats", "GGally", "viridis", "parallelPlot", "plotly", "lubridate", "d3treeR", "knitr")
+packages = c("tidyverse", "ggstatsplot", "ggpubr", "corrplot","heatmaply", "dendextend", "seriation", "readr" , "parallelPlot", "treemap", "ggthemes", "RColorBrewer", "forcats", "GGally", "viridis", "parallelPlot", "plotly", "lubridate", "d3treeR", "knitr", "htmlwidgets", "htmltools")
 
 for (p in packages){
     if(!require(p, character.only = T)){
@@ -266,7 +266,17 @@ bar_count <- ggplot(data = PM_group, aes_string(x = bar_var, fill = bar_fill))+
 
 p1 <- ggplotly(bar_count)
 
-p1
+
+saveWidget(p1, "p1.html", selfcontained = F, libdir = "lib")
+tags$iframe(
+  src = "p1.html", 
+  scrolling = "yes", 
+  seamless = "seamless",
+  frameBorder = "0",
+  width="500",
+  height="500"
+)
+
 
 ## changing variables and changing bar type
 
@@ -284,7 +294,16 @@ bar_DG <- ggplot(data = PM_group, aes_string(x = bar_var2, fill = bar_fill))+
 
 p2 <- ggplotly(bar_DG)
 
-p2
+saveWidget(p2, "p2.html", selfcontained = F, libdir = "lib")
+tags$iframe(
+  src = "p2.html", 
+  scrolling = "yes", 
+  seamless = "seamless",
+  frameBorder = "0",
+  width="500",
+  height="500"
+)
+
 ## free y axis for barID, facet by terminal ID 
 
 bar_fill2 <- "MOVE_OP_C"
@@ -299,7 +318,15 @@ bar_ID <- ggplot(data = PM_group, aes_string(x = bar_var, fill = bar_fill2))+
 
 p3 <- ggplotly(bar_ID)
 
-p3
+saveWidget(p3, "p3.html", selfcontained = F, libdir = "lib")
+tags$iframe(
+  src = "p3.html", 
+  scrolling = "yes", 
+  seamless = "seamless",
+  frameBorder = "0",
+  width="500",
+  height="500"
+)
 
 ``` 
 `plot_ly` from the plotly package was also experimented with, however, it does not allow for faceting without additional functions. As such, `ggplotly` will be used instead for the final chart. 
@@ -320,7 +347,15 @@ p4 <- PM_group %>%
               yaxis = list(title = "Count"))) %>%  ##  barmode = "stack", "relative" and "group" 
   subplot(shareX = TRUE, shareY = TRUE, titleX = FALSE)## stacking bar charts
 
-p4
+saveWidget(p4, "p4.html", selfcontained = F, libdir = "lib")
+tags$iframe(
+  src = "p4.html", 
+  scrolling = "yes", 
+  seamless = "seamless",
+  frameBorder = "0",
+  width="500",
+  height="500"
+)
 
 
 ```
@@ -354,7 +389,15 @@ hist_wait <- ggplot(data = PM_group, aes_string(x = hist_var), fill = hist_fill)
 
 p5 <- ggplotly(hist_wait)
 
-p5
+saveWidget(p5, "p5.html", selfcontained = F, libdir = "lib")
+tags$iframe(
+  src = "p5.html", 
+  scrolling = "yes", 
+  seamless = "seamless",
+  frameBorder = "0",
+  width="500",
+  height="500"
+)
 
 ## creating data subset to compare difference
 
@@ -375,7 +418,15 @@ hist_sub <- ggplot(data = PM_Terminal, aes_string(x = hist_var, fill = hist_fill
 
 p6 <- ggplotly(hist_sub)
 
-p6
+saveWidget(p6, "p6.html", selfcontained = F, libdir = "lib")
+tags$iframe(
+  src = "p6.html", 
+  scrolling = "yes", 
+  seamless = "seamless",
+  frameBorder = "0",
+  width="500",
+  height="500"
+)
 
 #Histogram based on terminal ID
 
@@ -389,7 +440,15 @@ hist_term <- ggplot(data = PM_group, aes_string(x = hist_var, fill = hist_fill))
 
 p7 <- ggplotly(hist_term)
 
-p7
+saveWidget(p7, "p7.html", selfcontained = F, libdir = "lib")
+tags$iframe(
+  src = "p7.html", 
+  scrolling = "yes", 
+  seamless = "seamless",
+  frameBorder = "0",
+  width="500",
+  height="500"
+)
 
 ## adding free_y scale
 scale <- "free_y" #"fixed" is other choice
@@ -402,7 +461,15 @@ hist_spec <- ggplot(data = PM_group, aes(x = PM_TRAVEL_TIME_Q, fill = Terminal))
 
 p8 <- ggplotly(hist_spec)
 
-p8
+saveWidget(p8, "p8.html", selfcontained = F, libdir = "lib")
+tags$iframe(
+  src = "p8.html", 
+  scrolling = "yes", 
+  seamless = "seamless",
+  frameBorder = "0",
+  width="500",
+  height="500"
+)
 
 scale2 <- "fixed" #"fixed" is other choice
 hist_fill2 <- "Terminal"
@@ -425,7 +492,15 @@ hist_hour <- ggplot(data = PM_group, aes_string(x = hist_var, fill = hist_fill2)
 
 p9 <- ggplotly(hist_hour)
 
-p9
+saveWidget(p9, "p9.html", selfcontained = F, libdir = "lib")
+tags$iframe(
+  src = "p9.html", 
+  scrolling = "yes", 
+  seamless = "seamless",
+  frameBorder = "0",
+  width="500",
+  height="500"
+)
 ```
 The majority of the events have a 5 - 10 minute waiting time. The distribution is approximately normal, with a left skew. The tail is relatively long, which means that there are events with many long waiting times. In this case, a potential exploration can be done to determine the causes of these long waiting times, as these would be the ones that would bring up the mean waiting time for PM operations. Once the root cause is determined, key actions should be taken to remedy those issues. 
 
@@ -470,7 +545,16 @@ inputColumns1 <- c(TRUE,
 histoVis <- rep(TRUE, ncol(PM_parallel))
 p10 <- parallelPlot(data = PM_parallel, keptColumns = inputColumns1, categorical = categorical1, refColumnDim = "LENGTH_Q", rotateTitle = TRUE, histoVisibility = histoVis)
 
-p10
+
+saveWidget(p10, "p10.html", selfcontained = F, libdir = "lib")
+tags$iframe(
+  src = "p10.html", 
+  scrolling = "yes", 
+  seamless = "seamless",
+  frameBorder = "0",
+  width="500",
+  height="500"
+)
 
 ```
 
@@ -534,7 +618,16 @@ ggbetweenstats(data = PM_Terminal, x = CNTR_spec, y = PM_WAIT_TIME_Q, type = "np
 box <- ggbetweenstats(data = PM_Terminal, x = MOVE_OP_C, y = PM_WAIT_TIME_Q, plot.type = "box", type = "np", pairwise.display = "s")
 
 p11 <- ggplotly(box)
-p11
+
+saveWidget(p11, "p11.html", selfcontained = F, libdir = "lib")
+tags$iframe(
+  src = "p11.html", 
+  scrolling = "yes", 
+  seamless = "seamless",
+  frameBorder = "0",
+  width="500",
+  height="500"
+)
 ```
 The interactive version built using `ggplotly` has removed all the statistical tests that are inherent in the `ggbetweenstats` function. As a result, the decision is made to remove the interactivity function in the final Shiny environment, considering that the outliers can be easily filtered out using other methods when deep-diving into anomalies. 
 
