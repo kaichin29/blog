@@ -9,7 +9,8 @@ date: 03-18-2021
 output:
   distill::distill_article:
     html_document:
-     css: <link rel="stylesheet" href="path/to/css/splendor.css">
+    keep_md: true
+    css: <link rel="stylesheet" href="path/to/css/splendor.css">
     self_contained: false
     toc: true
     toc_float: true
@@ -17,10 +18,9 @@ output:
 ---
 
 
-```{r setup  }
+```{r}
 knitr::opts_chunk$set(warning= FALSE)
 ```
-
 
 # 1.0 Introduction
 
@@ -49,16 +49,16 @@ Current PSA dashboards and visuliasations were created many years ago and have n
 
 This first graph showcases the average PM productivity across all terminals. 
 
-![](C:/ISSS608/blog/_posts/2021-03-18-assignment/CurrentViz1.png){width=250px}
+![](C:/ISSS608/blog/_posts/2021-03-18-assignment/CurrentViz1.png){width=100px}
 
 The details of each movement has been lost in the aggregation. Only a simple average is present. There are also no counts being presented in the current visualisation, thus, the user cannot check the total number of movements within the dataset. As terminals operate independently of each other, productivity across terminals are not related, therefore it makes little sense to visualise the productivity values as a line graph. There is no legend to describe what each line represents (red = ship ops, orange / purple = ITH, blue = shifting, black = overall). Colours are inconsistent, as different colours represent the same type of movement.  
 
 
-![](C:/ISSS608/blog/_posts/2021-03-18-assignment/CurrentViz2.png){width=250px}
+![](C:/ISSS608/blog/_posts/2021-03-18-assignment/CurrentViz2.png){width=100px}
 
 The percentage for each component of the stacked bar chart is not shown, leaving the reader to figure out the approximate percentage of each productivity category. As this view is too aggregated, there is limited possibility of deriving insights from why different terminals are performing differently. Every thing is based on a simple average of productivities. 
 
-![](C:/ISSS608/blog/_posts/2021-03-18-assignment/CurrentViz3.png) {width=250px}
+![](C:/ISSS608/blog/_posts/2021-03-18-assignment/CurrentViz3.png) {width=100px}
 
 The categories are too wide in this view, considering that the <15 category takes up to at least 75% of movements in each terminal. More granularity should be introduced, with more categories such as "0-5", "5-10", and "10-15", which would give a better breakdown of waiting time. 
 
@@ -66,18 +66,17 @@ Overall, there is no statistical analysis or clear visualisations being put in p
 
 # 3.0 Prototyping
 
-WRITE SOMETHING
-
+This blog post is to explore various R packages and visual designs to decide how the final Shiny environment will look like. 
 
 ## 3.1 Data Preparation
 
-Data from March 2019 is extracted from the PSA operations database. This database is anonymised using JMP Pro 15. R Packages are loaded with the following code for preparation.  
+Firstly, to prepare the data that we will be using for experimentation. Data from March 2019 is extracted from the PSA operations database. This database is anonymised using JMP Pro 15. R Packages are loaded with the following code for preparation.  
 
 
 ```{r prep}
 
 # Preparing packages
-packages = c("tidyverse", "ggstatsplot", "ggpubr", "corrplot","heatmaply", "dendextend", "seriation", "readr" , "parallelPlot", "treemap", "ggthemes", "RColorBrewer", "forcats", "GGally", "viridis", "parallelPlot", "plotly", "lubridate", "d3treeR")
+packages = c("tidyverse", "ggstatsplot", "ggpubr", "corrplot","heatmaply", "dendextend", "seriation", "readr" , "parallelPlot", "treemap", "ggthemes", "RColorBrewer", "forcats", "GGally", "viridis", "parallelPlot", "plotly", "lubridate", "d3treeR", "knitr")
 
 for (p in packages){
     if(!require(p, character.only = T)){
