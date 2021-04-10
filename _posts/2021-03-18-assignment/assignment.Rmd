@@ -19,7 +19,7 @@ output:
 
 
 ```{r}
-knitr::opts_chunk$set(warning= FALSE)
+knitr::opts_chunk$set(warning= FALSE, message = FALSE)
 ```
 
 # 1.0 Introduction
@@ -56,7 +56,7 @@ The details of each movement has been lost in the aggregation. Only a simple ave
 
 ![](C:/ISSS608/blog/_posts/2021-03-18-assignment/CurrentViz2.png){width=100px}
 
-The percentage for each component of the stacked bar chart is not shown, leaving the reader to figure out the approximate percentage of each productivity category. As this view is too aggregated, there is limited possibility of deriving insights from why different terminals are performing differently. Every thing is based on a simple average of productivities. 
+The percentage for each component of the stacked bar chart is not shown, leaving the reader to figure out the approximate percentage of each productivity category. As this view is too aggregated, there is limited possibility of deriving insights from why different terminals are performing differently. Every observation is based on a simple average of productivities. 
 
 ![](C:/ISSS608/blog/_posts/2021-03-18-assignment/CurrentViz3.png){width=100px}
 
@@ -65,8 +65,7 @@ The categories are too wide in this view, considering that the <15 category take
 Overall, there is no statistical analysis or clear visualisations being put in place in current operations. There are also no parameters that can be adjusted to suit the specific user, with only a one-size-fits-all visualisation available. 
 
 # 3.0 Prototyping
-
-This blog post is to explore various R packages and visual designs to decide how the final Shiny environment will look like. 
+The main goal for the assignment is to explore various R packages and visual designs to determine what will be retained in the final Shiny environment. Due to the size of the dataset, only a section of data will be used from the full dataset to improve performance and reliability. 
 
 ## 3.1 Data Preparation
 
@@ -177,8 +176,11 @@ head(PM_group)
 glimpse(PM_group)
 ```
 
+## 3.2 Exploratory Data Analysis
 
-## 3.2 Treemap
+Exploratory data analysis will be the first component of the Shiny application so as to provide a general overview of the performance and breakdown of PM waiting time.
+
+### 3.2.1 Treemap
 
 One of the issues that the user has with the current visualisations is that there is no form of breakdown for the type of containers or number of containers handled in each terminal. Thus, a treemap was conceptualised as a good way to visualise the size and scale that each factor contributes to the waiting time. The `treemap` function from the treemap package was used to create the visualisations below.
 
@@ -237,17 +239,18 @@ treemap_inter
 
 As can be seen from the treemaps, 40 footer general purpose (STD + AMB) containers and 20 footer GP containers are the most common type of container that the port handles. Based on visual analysis, Terminval v2_3 operates the most number of containers.
 
-## 3.3 Exploratory Data Analysis
+
+### 3.2.2 Bar chart
 
 The next component to introduce as a visualisation are bar charts. These bar charts enable users to visualise the operations in a deeper level of detail versus the treemap. The treemap is envisioned to be something that can be looked at quickly and check rough estimates. The bar charts will allow for greater manipulation of parameters to ensure that users can get the information that they want. 
-
-### 3.3.1 Bar chart
 
 The bar charts are created using `ggplot` from the ggplot2 package. `aes_string` is used for aesthetics as it enables us to use variables to map the aesthetics of the plot. This will help when converting the code from a markdown document to a Shiny document. 
 
 To create the base bar chart, variables were mapped for the x-axis, bar_var, and the fill argument, bar_fill. A `geom_bar` was added, with the position argument defined as `position_dodge`. A theme, `theme_few` was mapped. The `facet_wrap` layer is mapped using a variable, bar_wrap, and put into the argument using the `as.formula` and `paste` functions. This allows all arguments in the `ggplot` function as variables. A variable, bar_scale was also mapped to change the scale type of the y-axis when faceting. 
 
 Multiple bar charts were created to test out various configurations. Interactivity is added to the chart by passing the named plot through `ggplotly` from the ggplot2 package. No numbers are placed on the charts to reduce overplotting. The count information is added into the tooltip automatically by `ggplotly`, thus the decision was made to not include any text.
+
+Due to a limitation on plotly and chart size, the plotly chart was converted into a html file using `saveWidget` from the htmlwidgets package, and then embedded into the markdown document using the `tags$iframe` function. This reduces loading time and performance issues on the webpage. This step is repeated for all plotly plots. 
 
 ``` {r bar}
 
@@ -360,7 +363,7 @@ tags$iframe(
 
 ```
 
-### 3.3.2 Histogram 
+### 3.2.3 Histogram 
 
 To understand the overall performance and waiting time for the operation, histograms are used to visualise the wait time. These histograms were created using the `geom_histogram` function of ggplot2. As with the bar charts above, each argument was put as a variable, with the x-axis being hist_var, the fill being hist_fill, and the facet wrap variable being hist_wrap. These were then mapped using `aes_string`. The bin size was also created as a variable, binsize, which will be used for the `binwidth` argument in `geom_histogram`. 
 
@@ -505,7 +508,7 @@ tags$iframe(
 The majority of the events have a 5 - 10 minute waiting time. The distribution is approximately normal, with a left skew. The tail is relatively long, which means that there are events with many long waiting times. In this case, a potential exploration can be done to determine the causes of these long waiting times, as these would be the ones that would bring up the mean waiting time for PM operations. Once the root cause is determined, key actions should be taken to remedy those issues. 
 
 
-### 3.3.3 Parallel Coordinates
+### 3.2.4 Parallel Coordinates
 
 Parallel coordinates are used to visualise multivariate data. The `parallelPlot` function from the parallelPlot package is used to create this plot. This helps to compare the parameters of individual observations so as to see if any patterns can be derived from these plots.  
 
@@ -560,11 +563,11 @@ tags$iframe(
 
 
 
-## 3.4 Confirmatory Data Analysis
+## 3.3 Confirmatory Data Analysis
 
 Confirmatory data analysis is carried out next. This will help to analyse the distributions that are seen. 
 
-### 3.4.1 Scatterplots
+### 3.3.1 Scatterplots
 
 Scatter plots are plotted next to visualise the correlation between travel time and wait time, to check for correlation between them. Variables are created for the plot type and statistical method as scatter_type and scatter_stat respectively. These arguments are fed into the `ggscatterstats` from the ggstatsplot package to create a scatterplot diagram for users to analyse. Since the x-axis and y-axis are always numerical, they are hardcoded into the data set considering that there are only 2 main numerical elements. Additional plots are created to map other inputs in the `ggscatterstats` arguments. 
 
@@ -598,9 +601,13 @@ grouped_ggscatterstats(data = PM_Terminal, x = PM_WAIT_TIME_Q, y = PM_TRAVEL_TIM
 ```
 
 
-### 3.4.2 Violin & box plots
+### 3.3.2 Violin & box plots
 
-Box and violin plots allow us to understand the distribution for the numerical values of the dataset.  
+Box and violin plots allow us to understand the distribution for the numerical values of the dataset. This will help to compare means between different groups, for example, Terminal ID. Instead of using a normal box plot using the ggplot package, the `ggbetweenstats` function from the ggstatsplot package was used. This package enables the user to explore statistical tests along with the visualisation of the distributions. 
+
+The `pairwise.display` function was hardcoded as "s", representing significant values only. However, in the Shiny app, this will be converted to a variable which allows for users to view both significant and all test results. Non-significant results are not the focus, so will not be added later. Both violin and box plots will be used, as they serve their own purpose. Additional explanatory text will be included in the Shiny app to explain the output of `ggbetweenstats` as not all users will be able to understand the statistical output. 
+
+`ggplotly` from the ggplot2 package was used to give interactivity to the plot generated. 
 
 ```{r violin}
 
@@ -629,7 +636,11 @@ tags$iframe(
   height="500"
 )
 ```
-The interactive version built using `ggplotly` has removed all the statistical tests that are inherent in the `ggbetweenstats` function. As a result, the decision is made to remove the interactivity function in the final Shiny environment, considering that the outliers can be easily filtered out using other methods when deep-diving into anomalies. 
+
+However, upon further inspection, the interactive version built using `ggplotly` has removed all the statistical tests that are inherent in the `ggbetweenstats` function. As a result, a decision was made to remove the interactivity function in the final Shiny environment, considering that the statistical output is more important than the interactivity functionality. 
+
+Additional testing was carried out using the `grouped_ggbetweenstats` function. Its output is similar to that of `grouped_ggscatterstats`, whereby users can define a grouping variable argument to visualise different factors. However, it also has the same limitations in which it is unable to take in an "all" argument for grouping. Thus, an additional option will need to be built to select for the appropriate function accordingly. 
+
 
 ```{r grouped box plot}
 
@@ -642,7 +653,23 @@ p12
 
 # 4.0 Proposed Visualisation
 
+The proposed visualisation is envisioned to look like this.
 
-The proposed visualisation is XXX (insert picture), with the various XXX 
+![](C:/ISSS608/blog/_posts/2021-03-18-assignment/ProposedViz.jpg)
+It will have 2 main components, exploratory data analysis and confirmatory data analysis. Each section will be split further into its sub-components as demonstrated above. Various formats of selection will be provided where relevant, such as dropdown menus for selection of variables, button menus for argument selection (type of graph in box-violin plots, histogram or box plot visualisation for scatterplots), and sliders for date selection. For date selection, only a limited range will be provided, as this will heavily impact the performance of the site, especially for parallel coordinates. 
 
-extract to user guide
+# 5.0 Reflections
+
+## 5.1 Performance
+
+Due to the large size of the initial data set, multiple segmentations were needed to be carried out so as to prevent R Studio from crashing, especially when creating plots with high interactivity (like parallel coordinate plots) or those that require significant computing power (like ANOVA testing from the ggstatsplot packages). As such, more care should be taken to improve performance, especially if this is to be rolled out to general users. Even if it helps operations greatly with visualisation and understanding, users will not use it if it faces significant performance issues. 
+
+
+## 5.2 Interactivity
+
+Since the data is segmented, interactivity is key to allow users to select the relevant data that they require, such as date selection. As the end-user is much more knowledgeable about the ins and outs of the operation than us, leaving variable selection to the end-user can improve the engagement with the tool as they are more likely to find patterns and insights rather than being prescribed a view. However, interactivity heavily impacts performance, and so some limitations are required to preserve general usability of the tool. 
+
+
+
+
+
