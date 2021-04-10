@@ -24,11 +24,11 @@ knitr::opts_chunk$set(warning= FALSE, message = FALSE)
 
 # 1.0 Introduction
 
-This assignment is a subset of the bigger Shiny-based Visual Analytics Application project. This is a subset of Understanding Prime Mover (PM) Waiting Time in Yard.
+This assignment is a subset of the bigger Shiny-based Visual Analytics Application project, Understanding Prime Mover (PM) Waiting Time in Yard.
 
 In this markdown blog, there will be 3 components
 1) Introduction & Literature Review
-2) Exploratory data analysis via treemaps, pie / bar charts, and histograms
+2) Exploratory data analysis via treemaps, pie / bar charts, histograms, and parallel plots 
 3) Uncertainty via confidence intervals with box / violin plots
 
 # 2.0 Introduction & Literature Review
@@ -64,12 +64,14 @@ The categories are too wide in this view, considering that the <15 category take
 
 Overall, there is no statistical analysis or clear visualisations being put in place in current operations. There are also no parameters that can be adjusted to suit the specific user, with only a one-size-fits-all visualisation available. 
 
+
+
 # 3.0 Prototyping
-The main goal for the assignment is to explore various R packages and visual designs to determine what will be retained in the final Shiny environment. Due to the size of the dataset, only a section of data will be used from the full dataset to improve performance and reliability. 
+The main goal for the assignment is to explore various R packages and visual designs to determine what will be retained in the final Shiny environment. Due to the size of the dataset, data will be segmented from the full dataset to improve performance. 
 
 ## 3.1 Data Preparation
 
-Firstly, to prepare the data that we will be using for experimentation. Data from March 2019 is extracted from the PSA operations database. This database is anonymised using JMP Pro 15. R Packages are loaded with the following code for preparation.  
+Firstly, data preparation occurs. Data from March 2019 was extracted from the PSA operations database and anonymised using JMP Pro 15. R Packages are loaded using the following code for preparation.  
 
 
 ```{r prep}
@@ -125,7 +127,7 @@ glimpse(PM_AGG)
 
 ```
 
-The dataset is then cleaned and transformed. `as.Date` is used to change "day" to a date. `as.factor` to transform the other character inputs into factors. `fct_collapse` from the forcats function is used to combine, clean, and rename the categories in the dataset. This is to reduce the number of NULLs and zeros within the dataset. It also helps to make many of the variables, such as DG or Reefer, into binary categories. 
+The dataset is then cleaned and transformed. `as.Date` is used to change "day" to a date. `as.factor` to transform the other character inputs into factors. `fct_collapse` from the forcats function is used to combine, clean, and rename the categories in the dataset. This is to reduce the number of NULLs and zeros within the dataset. It also helps to make many of the variables, such as DG or Reefer, into more understandable categories. 
 
 An additional variable was created, called "CNTR_spec" to combine the container length, DG status, and Reefer status into 1 factor. These 3 variables can generally describe the condition of most containers that PSA handles. A final `glimpse` is used to confirm the statuses of the variables. 
 
@@ -159,7 +161,7 @@ glimpse(PM_AGG)
 
 ```
 
-As this is a prototype, a date filter was added to the dataset using the `filter` function from tidyverse to reduce the number of data rows being processed to increase processing speed. The final Shiny app would have the entire dataset. Using this method, the number of rows being processed is cut down from 1.7 million entries to approximately 90 thousand. The PM_group dataset  will be the main dataset used in the prototype.  
+As this is a prototype, a date filter was added to the dataset using the `filter` function from tidyverse to reduce the number of data rows being processed to increase processing speed. The final Shiny app would have the entire dataset. Using this method, the number of rows being processed is cut down from 1.7 million entries to approximately 90 thousand. The PM_group dataset will be the main dataset used in the prototype.  
 
 ```{r filter}
 PM_AGG %>% 
@@ -178,14 +180,16 @@ glimpse(PM_group)
 
 ## 3.2 Exploratory Data Analysis
 
-Exploratory data analysis will be the first component of the Shiny application so as to provide a general overview of the performance and breakdown of PM waiting time.
+Exploratory data analysis will be the first component of the Shiny application to provide a general overview of the performance and breakdown of PM waiting time.
 
 ### 3.2.1 Treemap
 
-One of the issues that the user has with the current visualisations is that there is no form of breakdown for the type of containers or number of containers handled in each terminal. Thus, a treemap was conceptualised as a good way to visualise the size and scale that each factor contributes to the waiting time. The `treemap` function from the treemap package was used to create the visualisations below.
+One of the issues with the current visualisations is that there is no form of breakdown for the type of containers or number of containers handled in each terminal. Thus, a treemap was conceptualised as a good way to visualise the size and scale that each factor contributes to the waiting time. The `treemap` function from the treemap package was used to create the visualisations below.
 
 
 "PM_WAIT_TIME_Q" is used as the base for the size of the category, within the `vSize` argument in the `treemap` function. Initial testing used the variables as strings, such as "LENGTH_Q" being mapped directly for the `index` argument. Further testing allowed for mapping the index directly with variables. These variables are used as a proxy for the R Shiny input values, and can be mapped more easily into the code chunk. However, more testing will need to be carried out to see if a checklist can be used to increase the number of categories being mapped in the treemap at any one time. 
+
+A colour palette, `Blues` from the RColorPalette package was used. 
 
 ```{r tree}
 
@@ -237,14 +241,14 @@ treemap_inter
 
 ```
 
-As can be seen from the treemaps, 40 footer general purpose (STD + AMB) containers and 20 footer GP containers are the most common type of container that the port handles. Based on visual analysis, Terminval v2_3 operates the most number of containers.
+As can be seen from the treemaps, 40 footer general purpose (STD + AMB) containers and 20 footer GP containers are the most common type of container that the port handles. Based on visual analysis, Terminval v48_4 operates the most number of 40ft standard, ambient containers.
 
 
 ### 3.2.2 Bar chart
 
 The next component to introduce as a visualisation are bar charts. These bar charts enable users to visualise the operations in a deeper level of detail versus the treemap. The treemap is envisioned to be something that can be looked at quickly and check rough estimates. The bar charts will allow for greater manipulation of parameters to ensure that users can get the information that they want. 
 
-The bar charts are created using `ggplot` from the ggplot2 package. `aes_string` is used for aesthetics as it enables us to use variables to map the aesthetics of the plot. This will help when converting the code from a markdown document to a Shiny document. 
+The bar charts are created using `ggplot` from the ggplot2 package. `aes_string` is used for aesthetics as it enables us to use variables and strings to map the aesthetics of the plot. This will help when converting the code from a markdown document to a Shiny document. 
 
 To create the base bar chart, variables were mapped for the x-axis, bar_var, and the fill argument, bar_fill. A `geom_bar` was added, with the position argument defined as `position_dodge`. A theme, `theme_few` was mapped. The `facet_wrap` layer is mapped using a variable, bar_wrap, and put into the argument using the `as.formula` and `paste` functions. This allows all arguments in the `ggplot` function as variables. A variable, bar_scale was also mapped to change the scale type of the y-axis when faceting. 
 
@@ -332,7 +336,8 @@ tags$iframe(
 )
 
 ``` 
-`plot_ly` from the plotly package was also experimented with, however, it does not allow for faceting without additional functions. As such, `ggplotly` will be used instead for the final chart. 
+
+`plot_ly` from the plotly package was also experimented with, however, it does not allow for faceting without using `lapply` or and the `subplot` function, which may cause problems in the Shiny environment. As such, `ggplotly` will be used instead for the final chart. 
 
 ```{r bar plotly}
 
@@ -565,11 +570,11 @@ tags$iframe(
 
 ## 3.3 Confirmatory Data Analysis
 
-Confirmatory data analysis is carried out next. This will help to analyse the distributions that are seen. 
+Confirmatory data analysis is carried out next. This will help to analyse the distributions that are observed from the data. 
 
 ### 3.3.1 Scatterplots
 
-Scatter plots are plotted next to visualise the correlation between travel time and wait time, to check for correlation between them. Variables are created for the plot type and statistical method as scatter_type and scatter_stat respectively. These arguments are fed into the `ggscatterstats` from the ggstatsplot package to create a scatterplot diagram for users to analyse. Since the x-axis and y-axis are always numerical, they are hardcoded into the data set considering that there are only 2 main numerical elements. Additional plots are created to map other inputs in the `ggscatterstats` arguments. 
+Scatter plots are plotted next to visualise the correlation between travel time and wait time to check for correlation between them. Variables are created for the plot type and statistical method as scatter_type and scatter_stat respectively. These arguments are fed into the `ggscatterstats` from the ggstatsplot package to create a scatterplot diagram for users to analyse. Since the x-axis and y-axis are always numerical, they are hardcoded into the arguments. Additional plots are created to map other inputs in the `ggscatterstats` arguments. 
 
 ```{r scatter}
 
