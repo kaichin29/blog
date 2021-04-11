@@ -8,6 +8,7 @@ author:
 date: 03-18-2021
 output:
   distill::distill_article:
+    code_folding: true
     html_document:
     keep_md: true
     css: <link rel="stylesheet" href="path/to/css/splendor.css">
